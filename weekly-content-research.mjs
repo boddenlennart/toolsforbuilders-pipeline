@@ -300,14 +300,15 @@ function trimTTS(script) {
     }
   }
 
-  // Pass 2: trim total > MAX_TOTAL, targeting longest segments first
+  // Pass 2: trim total > MAX_TOTAL — hookTTS is protected (trimmed last)
+  // Priority: points[].tts → proofTTS → agitateTTS → ctaTTS → hookTTS
   let total = segs.reduce((sum, seg) => sum + wc(seg.get()), 0);
   while (total > MAX_TOTAL) {
-    // Find longest segment (excluding already-minimal ones)
+    // Find longest segment, deprioritise hookTTS by halving its effective weight
     const longest = segs
-      .map(seg => ({ seg, w: wc(seg.get()) }))
+      .map(seg => ({ seg, w: wc(seg.get()), isHook: seg.field === 'hookTTS' }))
       .filter(({ w }) => w > 5)
-      .sort((a, b) => b.w - a.w)[0];
+      .sort((a, b) => (b.isHook ? b.w * 0.5 : b.w) - (a.isHook ? a.w * 0.5 : a.w))[0];
     if (!longest) break;
 
     const before = longest.seg.get();
