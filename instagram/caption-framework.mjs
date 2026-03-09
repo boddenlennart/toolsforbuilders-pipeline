@@ -147,15 +147,16 @@ function buildTikTokTags(script, max = 5) {
  * Build YouTube hashtags (3–5, first 3 appear above video title).
  * Order: tool-specific → pillar → brand
  */
-function buildYouTubeTags(script, max = 5) {
-  if (!script) return [BRAND_TAG, '#aitools', '#solopreneur'].slice(0, max);
+function buildYouTubeTags(script, max = 7) {
+  if (!script) return [BRAND_TAG, '#aitools', '#solopreneur', '#aiautomation'].slice(0, max);
 
   const toolNames = extractToolNames(script);
   const toolTags = getToolTags(toolNames).slice(0, 2); // Max 2 tool tags
   const pillarTag = PILLAR_TAGS[script.pillar] || '#aiworkflow';
 
-  // Order: tool-specific first (appears above title), then pillar, then brand
-  return [...new Set([...toolTags, pillarTag, BRAND_TAG, '#aitools'])].slice(0, max);
+  // Order: tool-specific first (appears above title), then pillar, then core niche, then brand
+  // Target 5-7 tags — enough for discovery without spam penalty
+  return [...new Set([...toolTags, pillarTag, '#aitools', '#solopreneur', '#aiautomation', BRAND_TAG])].slice(0, max);
 }
 
 /**
