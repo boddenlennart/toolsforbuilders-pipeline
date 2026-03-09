@@ -49,15 +49,23 @@ function loadTierMap(filePath) {
   const tier3 = [], tier2 = [], tier1 = [];
   let currentTier = null;
   for (const line of content.split('\n')) {
-    if (line.includes('Tier 3') || line.includes('tier 3')) currentTier = 3;
-    else if (line.includes('Tier 2') || line.includes('tier 2')) currentTier = 2;
-    else if (line.includes('Tier 1') || line.includes('tier 1')) currentTier = 1;
-    const handle = line.match(/@(\w+)/)?.[1]?.toLowerCase();
-    if (handle) {
-      if (currentTier === 3) tier3.push(handle);
-      else if (currentTier === 2) tier2.push(handle);
-      else if (currentTier === 1) tier1.push(handle);
+    // Only update tier when a section header (##) is encountered
+    if (/^##/.test(line)) {
+      if (line.includes('Tier 3') || line.includes('tier 3')) currentTier = 3;
+      else if (line.includes('Tier 2') || line.includes('tier 2')) currentTier = 2;
+      else if (line.includes('Tier 1') || line.includes('tier 1')) currentTier = 1;
+      else currentTier = null; // any other ## section → stop collecting
     }
+    // Only parse handles from markdown table rows (| @handle |)
+    // and skip strikethrough entries (~~@handle~~)
+    if (!currentTier) continue;
+    if (!line.trim().startsWith('|')) continue;
+    if (line.includes('~~')) continue; // strikethrough = disabled/paused account
+    const handle = line.match(/\|\s*@(\w+)/)?.[1]?.toLowerCase();
+    if (!handle) continue;
+    if (currentTier === 3 && !tier3.includes(handle)) tier3.push(handle);
+    else if (currentTier === 2 && !tier2.includes(handle)) tier2.push(handle);
+    else if (currentTier === 1 && !tier1.includes(handle)) tier1.push(handle);
   }
   return { tier1, tier2, tier3 };
 }

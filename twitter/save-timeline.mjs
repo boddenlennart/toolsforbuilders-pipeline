@@ -138,11 +138,14 @@ const output = {
   totalCached:  merged.length,
   targetTweets,
   generalFeed:  generalFeed.map(t => ({
-    id:     t.id,
-    url:    t.url,
-    author: t.author,
-    text:   t.text.slice(0, 150),
-    likes:  t.likes,
+    id:        t.id,
+    url:       t.url,
+    author:    t.author,
+    text:      t.text.slice(0, 150),
+    likes:     t.likes,
+    retweets:  t.retweets,
+    replies:   t.replies,
+    createdAt: t.createdAt,
   })),
 };
 
