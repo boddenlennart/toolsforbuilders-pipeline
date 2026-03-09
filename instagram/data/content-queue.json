@@ -157,7 +157,7 @@
     {
       "id": "reel-descript-overdub-fix",
       "pillar": "Hidden Feature",
-      "status": "queued",
+      "status": "blocked",
       "topic": "Descript Overdub — fix mispronounced words by typing, not re-recording",
       "hookHeadline": "Stop re-recording\nwhole sections.\nType the fix instead.",
       "hookSub": "Descript fixes your voice by typing.",
@@ -201,12 +201,14 @@
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow."
+      "ctaSecondary": "New post dropping tomorrow.",
+      "blockedAt": "2026-03-09T03:46:15.603Z",
+      "blockReason": "HB-6: TTS length limit exceeded"
     },
     {
       "id": "reel-ai-productivity-myth",
       "pillar": "Myth Bust",
-      "status": "queued",
+      "status": "blocked",
       "topic": "More AI use doesn't automatically mean more productivity",
       "hookHeadline": "More AI tools\ndoesn't mean\nyou're more productive",
       "hookSub": "HBR published the research. It's uncomfortable.",
@@ -225,7 +227,7 @@
             "The variable: how you deploy, not which tool",
             "Judgment-heavy tasks see the biggest losses"
           ],
-          "quickWin": "→ Source: HBR 2025, Berkeley productivity research",
+          "quickWin": "→ Source: HBR 2024, Berkeley productivity research (study conducted April-December 2024)",
           "tts": "Berkeley research found no consistent productivity gains. The variable isn't the tool — it's how you deploy it."
         },
         {
@@ -250,12 +252,14 @@
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow."
+      "ctaSecondary": "New post dropping tomorrow.",
+      "blockedAt": "2026-03-09T03:46:27.556Z",
+      "blockReason": "HB-2: Tool name/feature not in knowledge base; HB-6: TTS length limit exceeded"
     },
     {
       "id": "reel-claude-extended-thinking",
       "pillar": "Workflow",
-      "status": "queued",
+      "status": "blocked",
       "topic": "Claude Extended Thinking — when to use it and when it wastes your time",
       "hookHeadline": "Claude's Extended\nThinking is costing\nyou time",
       "hookSub": "Most people use it wrong.",
@@ -299,12 +303,14 @@
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow."
+      "ctaSecondary": "New post dropping tomorrow.",
+      "blockedAt": "2026-03-09T03:46:38.235Z",
+      "blockReason": "HB-1: Unverifiable superlative; HB-6: TTS length limit exceeded"
     },
     {
       "id": "reel-beehiiv-delete-subscribers",
       "pillar": "Comparison",
-      "status": "queued",
+      "status": "blocked",
       "topic": "Beehiiv: deleting inactive subscribers improves your newsletter metrics",
       "hookHeadline": "Deleting subscribers\ngrows your newsletter.",
       "hookSub": "Counterintuitive. Completely true.",
@@ -319,7 +325,7 @@
           "verdict": "Set automation to flag 90-day inactive subscribers",
           "bullets": [
             "Go to Automations in Beehiiv dashboard",
-            "Use the 'Re-engagement Flow (90-day Inactivity)' template from Quick start templates",
+            "Use the 'Re-engagement automation flow (90-day inactivity)' template from Quick start templates",
             "Review the list monthly",
             "Export before deleting — keep the data"
           ],
@@ -348,7 +354,9 @@
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow."
+      "ctaSecondary": "New post dropping tomorrow.",
+      "blockedAt": "2026-03-09T03:46:47.754Z",
+      "blockReason": "HB-6: TTS length limit exceeded; HB-7: Comparison hook missing both tool names"
     },
     {
       "id": "reel-gemini-imagen-500-free-daily",
