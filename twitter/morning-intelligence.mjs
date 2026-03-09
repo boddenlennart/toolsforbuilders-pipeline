@@ -68,22 +68,25 @@ console.log(`Loaded tier map: Tier 3=${tierMap.tier3.length}, Tier 2=${tierMap.t
 // Step 1.6: score and filter tweets
 function scoreTweet(tweet, tierMap) {
   let score = 0;
-  const author = tweet.author?.username?.toLowerCase();
+  // author is a plain string username (e.g. "NickSzabo4"), not an object
+  const author = tweet.author?.toLowerCase();
   
   // Tier bonus (biggest signal)
   if (tierMap.tier3.includes(author)) score += 100;
   else if (tierMap.tier2.includes(author)) score += 30;
   else if (tierMap.tier1.includes(author)) score += -999; // exclude
   
-  // Engagement signals
-  score += Math.min(tweet.public_metrics?.like_count || 0, 50) * 2;
-  score += Math.min(tweet.public_metrics?.reply_count || 0, 20) * 5;
-  score += Math.min(tweet.public_metrics?.retweet_count || 0, 30) * 3;
+  // Engagement signals — fields from normaliseTweet: likes, replies, retweets
+  score += Math.min(tweet.likes || 0, 50) * 2;
+  score += Math.min(tweet.replies || 0, 20) * 5;
+  score += Math.min(tweet.retweets || 0, 30) * 3;
   
-  // Recency bonus (tweets under 4h old get +20)
-  const ageHours = (Date.now() - new Date(tweet.created_at).getTime()) / 3600000;
-  if (ageHours < 4) score += 20;
-  else if (ageHours > 20) score -= 30; // too stale
+  // Recency bonus — field is createdAt (camelCase), not created_at
+  const ageHours = (Date.now() - new Date(tweet.createdAt).getTime()) / 3600000;
+  if (!isNaN(ageHours)) {
+    if (ageHours < 4) score += 20;
+    else if (ageHours > 20) score -= 30; // too stale
+  }
   
   // Topic relevance (Bitcoin/sovereignty keywords)
   const text = tweet.text?.toLowerCase() || '';
@@ -102,10 +105,9 @@ console.log('\n=== Scoring and filtering tweets ===');
 
 const timelinePath = '/root/.openclaw/workspace/memory/timeline-latest.json';
 const rawData = JSON.parse(fs.readFileSync(timelinePath, 'utf8'));
-// Combine targetTweets and generalFeed? In save-timeline.mjs, targetTweets are separate.
-// We'll score each tweet in targetTweets (they have author, likes, etc.)
-const tweets = rawData.targetTweets || [];
-console.log(`Scoring ${tweets.length} target tweets`);
+// Score targetTweets (full fields) + generalFeed (partial fields, but catches any Tier 3 not yet in targets)
+const tweets = [...(rawData.targetTweets || []), ...(rawData.generalFeed || [])];
+console.log(`Scoring ${tweets.length} tweets (${rawData.targetTweets?.length || 0} target + ${rawData.generalFeed?.length || 0} general feed)`);
 
 const scored = tweets.map(tweet => ({
   ...tweet,
@@ -119,7 +121,7 @@ const top = filtered.slice(0, 25);
 const highRelevance = filtered.filter(t => t.score > 150);
 const tier3Count = filtered.filter(t => tierMap.tier3.includes(t.author?.toLowerCase())).length;
 const tier2Count = filtered.filter(t => tierMap.tier2.includes(t.author?.toLowerCase())).length;
-const topOpportunity = top.length > 0 ? `${top[0].author} (score: ${top[0].score}) — "${top[0].text.substring(0, 40)}..."` : 'none';
+const topOpportunity = top.length > 0 ? `${top[0].author} (score: ${top[0].score}) — "${top[0].text?.substring(0, 40)}..."` : 'none';
 
 console.log(`📊 Timeline scored: ${tweets.length} raw → ${filtered.length} passed filter (score >30)`);
 console.log(`   Tier 3 accounts: ${tier3Count} tweets`);

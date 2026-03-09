@@ -29,12 +29,15 @@ const HOURS_BACK  = 14;
 
 function parseTargetAccounts() {
   const content = fs.readFileSync(path.join(__dirname, 'target-accounts.md'), 'utf-8');
-  const tier1 = [], tier2 = [];
+  const tier1 = [], tier2 = [], tier3 = [];
   const t1 = content.match(/## Tier 1[^\n]*\n[\s\S]*?(?=\n## )/);
   if (t1) tier1.push(...[...t1[0].matchAll(/\| @(\w+) \|/g)].map(m => m[1]));
   const t2 = content.match(/## Tier 2[^\n]*\n[\s\S]*?(?=\n## )/);
   if (t2) tier2.push(...[...t2[0].matchAll(/\| @(\w+) \|/g)].map(m => m[1]));
-  return { tier1, tier2 };
+  // Tier 3 = PRIMARY reply targets — must be in targetTweets, not generalFeed
+  const t3 = content.match(/## Tier 3[^\n]*\n[\s\S]*?(?=\n## |$)/);
+  if (t3) tier3.push(...[...t3[0].matchAll(/\| @(\w+) \|/g)].map(m => m[1]));
+  return { tier1, tier2, tier3 };
 }
 
 function todayBKK() {
@@ -117,8 +120,9 @@ console.log(`Merged set: ${merged.length} unique tweets within ${HOURS_BACK}h wi
 
 // ── separate target vs general ────────────────────────────────────────────────
 
-const { tier1, tier2 } = parseTargetAccounts();
-const allTargets = new Set([...tier1, ...tier2].map(a => a.toLowerCase()));
+const { tier1, tier2, tier3 } = parseTargetAccounts();
+const allTargets = new Set([...tier1, ...tier2, ...tier3].map(a => a.toLowerCase()));
+console.log(`Target accounts: ${tier1.length} Tier 1, ${tier2.length} Tier 2, ${tier3.length} Tier 3`);
 
 const targetTweets = merged.filter(t =>  allTargets.has(t.author.toLowerCase()));
 const generalFeed  = merged.filter(t => !allTargets.has(t.author.toLowerCase())).slice(0, 20);

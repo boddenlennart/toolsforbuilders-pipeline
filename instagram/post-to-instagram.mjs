@@ -201,6 +201,18 @@ function logPost(post, publishedId, success, error = null) {
  * @returns {Promise<{status: string, mediaId: string}>}
  */
 export async function postToInstagram(videoUrl, caption) {
+  // HARD GUARD: Hashtags must be in the original caption at post time.
+  // Instagram does NOT index hashtags added retroactively — algorithm won't pick up the post.
+  const hashtagCount = (caption.match(/#\w+/g) || []).length;
+  if (hashtagCount < 3) {
+    throw new Error(
+      `BLOCKED: Caption contains only ${hashtagCount} hashtag(s). ` +
+      `Hashtags MUST be included in the original caption before posting — ` +
+      `retroactive hashtag edits are NOT indexed by the Instagram algorithm. ` +
+      `Add hashtags to generateCaption() and retry.`
+    );
+  }
+
   console.log('   📹 Creating Reels container...');
 
   // Step 1: Create the REELS media container

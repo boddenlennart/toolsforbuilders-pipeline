@@ -311,6 +311,15 @@ async function uploadToR2ForTikTok(videoPath) {
  */
 async function postToInstagram(videoUrl, caption = generateCaption()) {
   console.log('📸 Step 3: Posting to Instagram Reels...');
+
+  // HARD GUARD: Hashtags must be present at post time — retroactive edits are NOT indexed by IG algorithm
+  const hashtagCount = (caption.match(/#\w+/g) || []).length;
+  if (hashtagCount < 3) {
+    const msg = `BLOCKED: Caption has only ${hashtagCount} hashtag(s). Must include hashtags in original caption — retroactive edits are not algorithm-indexed.`;
+    console.error(`❌ ${msg}`);
+    return { success: false, error: msg };
+  }
+
   try {
     const { uploadReelToInstagram } = await import('./instagram/post-reel.mjs');
     const mediaId = await uploadReelToInstagram(videoUrl, caption);
