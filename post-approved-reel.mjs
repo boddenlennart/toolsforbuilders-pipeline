@@ -88,62 +88,49 @@ const PILLAR_TAGS = {
 // Sweet spot = 10k–500k posts. Mega-broad tags (#productivity, #ai) have 100M+ posts
 // and bury small accounts. Mid-tier niche tags win for discovery at our follower count.
 //
-// Tiers:
-//   TIER_1 (always included): brand + 2 core niche tags with healthy volume
-//   TIER_2 (rotating pool): mid-tier tags that vary per post to avoid spam penalisation
-//   PILLAR_TAGS: content-type specific, always included
-//   TOOL_TAGS: tool-specific, always included when tool is featured
+// Structure per post:
+//   1. Pillar tag          — content-type (always)
+//   2. Tool-specific tags  — ONLY if that tool is featured in the video
+//   3. TIER_1              — core niche tags (always)
+//   4. TIER_2 by pillar    — topic-relevant mid-tier tags (curated per pillar, not random)
+//   5. Brand tag           — always last
 //
-// Instagram: 11 tags max (sweet spot for reach)
-// YouTube:   5 tags (first 3 appear above title — put best ones first)
+// Instagram: up to 11 tags | YouTube: 5 tags (first 3 appear above video title)
 
 const BRAND_TAG = '#toolsforbuilders';
 
 // Always included — strong niche volume, right size for growing account
 const TIER_1_TAGS = ['#aitools', '#solopreneur', '#aiautomation'];
 
-// Rotating mid-tier pool — cycle through these so no two consecutive posts share all tags
-// All in the 10k–300k post range — competitive enough to be browsed, small enough to rank
-const TIER_2_POOL = [
-  '#workflowautomation',
-  '#digitalnomadlife',
-  '#onlinebusiness',
-  '#contentcreator',
-  '#creatoreconomy',
-  '#sidehustle',
-  '#passiveincome',
-  '#buildingpublicly',
-  '#growthhacking',
-  '#marketingautomation',
-  '#smallbusiness',
-  '#entrepreneurmindset',
-];
-
-const BRAND_TAG_CONSTANT = BRAND_TAG; // alias for clarity in buildTags
+// Topic-relevant tier2 tags per pillar — curated, not random.
+// All 10k–300k posts: competitive enough to be browsed, small enough to rank.
+const TIER_2_BY_PILLAR = {
+  'Workflow':       ['#workflowautomation', '#digitalnomadlife', '#buildingpublicly'],
+  'Comparison':     ['#onlinebusiness', '#creatoreconomy', '#growthhacking'],
+  'Hidden Feature': ['#contentcreator', '#growthhacking', '#buildingpublicly'],
+  'Time/Money Math':['#sidehustle', '#passiveincome', '#onlinebusiness'],
+  'Myth Bust':      ['#entrepreneurmindset', '#growthhacking', '#contentcreator'],
+  'default':        ['#onlinebusiness', '#contentcreator', '#workflowautomation'],
+};
 
 /**
  * Build a deduplicated hashtag array for any platform.
- * Priority order: pillar → tool-specific → tier1 → tier2 (rotating) → branded.
+ * Priority order: pillar → tool-specific (featured tools only) → tier1 → tier2 (by pillar) → brand.
  * @param {object|null} script - Content queue script object
  * @param {number} max - Max number of tags to return
  * @returns {string[]} Array of hashtag strings
  */
 function buildTags(script, max = 12) {
-  if (!script) return [...TIER_1_TAGS, BRAND_TAG_CONSTANT].slice(0, max);
-  const toolNames = (script.points || []).map(p => p.toolName).filter(Boolean);
-  const toolTags = [...new Set(toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean))];
+  if (!script) return [...TIER_1_TAGS, BRAND_TAG].slice(0, max);
+
+  // Only include tool tags for tools actually featured in the video
+  const toolNames = [...new Set((script.points || []).map(p => p.toolName).filter(Boolean))];
+  const toolTags = toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean);
+
   const pillarTag = PILLAR_TAGS[script.pillar] || '#aiworkflow';
+  const tier2 = TIER_2_BY_PILLAR[script.pillar] || TIER_2_BY_PILLAR['default'];
 
-  // Rotate tier2 tags based on script id hash so each post gets a different combo
-  const seed = (script.id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-  const shuffled = [...TIER_2_POOL].sort((a, b) => {
-    const ha = (seed * a.charCodeAt(1)) % 97;
-    const hb = (seed * b.charCodeAt(1)) % 97;
-    return ha - hb;
-  });
-  const tier2 = shuffled.slice(0, 3);
-
-  return [...new Set([pillarTag, ...toolTags, ...TIER_1_TAGS, ...tier2, BRAND_TAG_CONSTANT])].slice(0, max);
+  return [...new Set([pillarTag, ...toolTags, ...TIER_1_TAGS, ...tier2, BRAND_TAG])].slice(0, max);
 }
 
 // ──────────────────────────────────────────────────────────────────────────────

@@ -390,15 +390,17 @@ const PILLAR_TAGS = {
 };
 
 // Hashtag strategy (updated 2026-03): sweet spot = 10k–500k posts.
-// #productivity (100M+ posts) replaced with mid-tier rotating pool.
+// Tool tags only included if that tool is featured. Tier2 curated per pillar, not random.
 const TIER_1_TAGS = ['#aitools', '#solopreneur', '#aiautomation'];
 const BRAND_TAG = '#toolsforbuilders';
-const TIER_2_POOL = [
-  '#workflowautomation', '#digitalnomadlife', '#onlinebusiness',
-  '#contentcreator', '#creatoreconomy', '#sidehustle',
-  '#passiveincome', '#buildingpublicly', '#growthhacking',
-  '#marketingautomation', '#smallbusiness', '#entrepreneurmindset',
-];
+const TIER_2_BY_PILLAR = {
+  'Workflow':        ['#workflowautomation', '#digitalnomadlife', '#buildingpublicly'],
+  'Comparison':      ['#onlinebusiness', '#creatoreconomy', '#growthhacking'],
+  'Hidden Feature':  ['#contentcreator', '#growthhacking', '#buildingpublicly'],
+  'Time/Money Math': ['#sidehustle', '#passiveincome', '#onlinebusiness'],
+  'Myth Bust':       ['#entrepreneurmindset', '#growthhacking', '#contentcreator'],
+  'default':         ['#onlinebusiness', '#contentcreator', '#workflowautomation'],
+};
 
 /**
  * Build a deduplicated hashtag array for any platform.
@@ -409,12 +411,10 @@ const TIER_2_POOL = [
  */
 function buildTags(script, max = 12) {
   if (!script) return [...TIER_1_TAGS, BRAND_TAG].slice(0, max);
-  const toolNames = (script.points || []).map(p => p.toolName).filter(Boolean);
-  const toolTags = [...new Set(toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean))];
+  const toolNames = [...new Set((script.points || []).map(p => p.toolName).filter(Boolean))];
+  const toolTags = toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean);
   const pillarTag = PILLAR_TAGS[script.pillar] || '#aiworkflow';
-  const seed = (script.id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-  const shuffled = [...TIER_2_POOL].sort((a, b) => ((seed * a.charCodeAt(1)) % 97) - ((seed * b.charCodeAt(1)) % 97));
-  const tier2 = shuffled.slice(0, 3);
+  const tier2 = TIER_2_BY_PILLAR[script.pillar] || TIER_2_BY_PILLAR['default'];
   return [...new Set([pillarTag, ...toolTags, ...TIER_1_TAGS, ...tier2, BRAND_TAG])].slice(0, max);
 }
 
