@@ -160,6 +160,8 @@ Run stale cleanup, check caps, draft content per rules. Post to dashboard API. F
 console.log('Agent prompt length:', message.length, 'chars');
 console.log('Sending to agent...');
 
+let agentTriggered = false;
+
 try {
   const { stdout } = await execFileAsync('openclaw', [
     'agent', '--local', '--agent', 'main',
@@ -167,13 +169,42 @@ try {
   ], { timeout: 300000, maxBuffer: 1024 * 1024 });
 
   console.log('Agent response received.');
-  // Extract summary line if present
   const lines = stdout.split('\n').filter(l => l.includes('draft') || l.includes('submitted') || l.includes('Complete'));
   if (lines.length) console.log(lines.join('\n'));
+  agentTriggered = true;
 
 } catch (e) {
-  console.error('Agent trigger failed:', e.message);
-  process.exit(1);
+  const isLocked = e.message && (e.message.includes('locked') || e.message.includes('lock'));
+  if (isLocked) {
+    // Main session is active (e.g. Telegram conversation in progress).
+    // Fall back: send via Telegram bot → agent picks it up as a normal message.
+    console.warn('⚠️  Session locked — main agent is in an active conversation.');
+    console.warn('    Falling back to Telegram channel trigger...');
+    try {
+      const cfg = JSON.parse(fs.readFileSync('/root/.openclaw/openclaw.json', 'utf8'));
+      const botToken = cfg.channels?.telegram?.botToken;
+      const chatId   = '2046511634';
+      if (!botToken) throw new Error('No Telegram bot token in openclaw.json');
+      const r = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: message }),
+      });
+      if (!r.ok) throw new Error(`Telegram API ${r.status}: ${await r.text()}`);
+      console.log('✅ Fallback: pipeline message sent via Telegram. Agent will process it on next activity.');
+      agentTriggered = true;
+    } catch (tgErr) {
+      console.error('Telegram fallback also failed:', tgErr.message);
+      // Log to file so the cron shows the failure without exiting non-zero
+      fs.appendFileSync('/root/.openclaw/workspace/memory/scan-errors.log',
+        `${new Date().toISOString()} agent_trigger_failed: ${e.message} | telegram_fallback: ${tgErr.message}\n`);
+    }
+  } else {
+    console.error('Agent trigger failed:', e.message);
+    fs.appendFileSync('/root/.openclaw/workspace/memory/scan-errors.log',
+      `${new Date().toISOString()} agent_trigger_failed: ${e.message}\n`);
+    process.exit(1);
+  }
 }
 
 // Notify Lennart via Telegram

@@ -740,7 +740,31 @@ async function main() {
       }
     }
   } else {
-    console.warn('⚠️  R2 URL missing, skipping approval flow.');
+    // R2 failed — still request approval using a fallback message (no video preview)
+    // All platforms must be gated behind approval regardless of R2 status.
+    console.warn('⚠️  R2 URL missing — requesting approval without video preview link.');
+    const caption = generateCaption(pickedScript?.script);
+
+    if (DRYRUN) {
+      approvalGranted = true;
+      approvalReason = 'dryrun_auto_approved';
+    } else {
+      const fallbackVideoNote = `_(Video preview unavailable — R2 upload failed. Script: ${pickedScript?.script?.id || 'unknown'})_`;
+      approvalGranted = await requestApproval(fallbackVideoNote, caption);
+
+      if (approvalGranted) {
+        approvalReason = 'approved';
+      } else {
+        approvalReason = 'rejected_or_timeout';
+        await sendAlert(`Daily crosspost skipped — ${approvalReason}.`);
+        results.steps.instagram = { success: false, error: 'skipped - not approved' };
+        results.steps.youtube   = { success: false, error: 'skipped - not approved' };
+        results.steps.tiktok    = { success: false, error: 'skipped - not approved' };
+        const logPath = saveResults(results);
+        await sendTelegramSummary(results);
+        return;
+      }
+    }
   }
 
   // Step 3: Instagram Reels (requires R2 URL)
@@ -761,9 +785,11 @@ async function main() {
   }
   results.steps.instagram = instagramResult;
 
-  // Step 4: YouTube
+  // Step 4: YouTube — MUST be gated behind approval, same as all other platforms
   let youtubeResult;
-  if (DRYRUN) {
+  if (!approvalGranted) {
+    youtubeResult = { success: false, error: 'skipped - not approved' };
+  } else if (DRYRUN) {
     const ytContent = generatePlatformContent(pickedScript?.script).youtube;
     const { title, description, backendTags: tags } = ytContent;
     console.log('📺 [DRYRUN] Would post to YouTube...');
@@ -803,9 +829,11 @@ async function main() {
     console.log('📸 [DRYRUN] Would send hook slide to Telegram for YouTube thumbnail');
   }
 
-  // Step 5: TikTok — manual handoff (sends video + caption to Telegram)
+  // Step 5: TikTok — manual handoff (gated behind approval like all other platforms)
   let tiktokResult;
-  if (DRYRUN) {
+  if (!approvalGranted) {
+    tiktokResult = { success: false, error: 'skipped - not approved' };
+  } else if (DRYRUN) {
     const tiktokCaption = generateTikTokCaption(pickedScript?.script);
     console.log('📲 [DRYRUN] Would send TikTok handoff to Telegram...');
     console.log('📲 [DRYRUN] TikTok caption preview:');
