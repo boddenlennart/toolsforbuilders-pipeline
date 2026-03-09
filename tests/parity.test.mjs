@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 /**
- * parity.test.mjs — Tests that daily-crosspost.mjs and post-approved-reel.mjs
- * produce identical output for captions, descriptions, tags, and archive entries.
+ * parity.test.mjs — Tests that caption/content generation is consistent.
+ * Now imports from the unified caption-framework.mjs (single source of truth).
  */
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert';
-import { readFileSync } from 'fs';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const scriptsDir = dirname(__dirname);
+import {
+  generateInstagramCaption,
+  generateYouTubeContent,
+  generateTikTokCaption,
+  generatePlatformContent,
+  PILLAR_TAGS,
+  BRAND_TAG,
+} from '../instagram/caption-framework.mjs';
 
 // Sample script for testing
 const MOCK_SCRIPT = {
@@ -35,85 +37,8 @@ const MOCK_SCRIPT = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Extract functions from both files for comparison
+// Archive/Performance log entry generators (same in both scripts)
 // ─────────────────────────────────────────────────────────────────────────────
-
-// Hashtag constants (must match both files)
-const TOOL_TAGS = {
-  'perplexity': '#perplexityai',
-  'gemini': '#geminiapp',
-  'gemini deep research': '#geminiapp',
-  'claude': '#claudeai',
-  'chatgpt': '#chatgpt',
-  'notebooklm': '#notebooklm',
-  'midjourney': '#midjourney',
-  'n8n': '#n8nautomation',
-  'zapier': '#zapier',
-  'make': '#makeautomation',
-  'runway': '#runwayml',
-  'elevenlabs': '#elevenlabs',
-  'gpt': '#openai',
-  'openai': '#openai',
-  'suno': '#sunoai',
-  'kling': '#klingai',
-  'descript': '#descript',
-  'notion': '#notionai',
-  'canva': '#canva',
-  'gamma': '#gammaapp',
-};
-
-const PILLAR_TAGS = {
-  'Workflow': '#aiworkflow',
-  'Comparison': '#aicomparison',
-  'Hidden Feature': '#aihacks',
-  'Time/Money Math': '#savetime',
-  'Myth Bust': '#aidebunked',
-};
-
-const CORE_TAGS = ['#aitools', '#solopreneur', '#productivity'];
-const BRAND_TAG = '#toolsforbuilders';
-
-function buildTags(script, max = 12) {
-  if (!script) return [...CORE_TAGS, BRAND_TAG].slice(0, max);
-  const toolNames = (script.points || []).map(p => p.toolName).filter(Boolean);
-  const toolTags = toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean);
-  const pillarTag = PILLAR_TAGS[script.pillar] || '#workflow';
-  return [...new Set([pillarTag, ...toolTags, ...CORE_TAGS, BRAND_TAG])].slice(0, max);
-}
-
-function generateCaption(script) {
-  if (script) {
-    const pillarEmoji = { 'Workflow': '⚙️', 'Comparison': '⚖️', 'Hidden Feature': '🔍', 'Time/Money Math': '💰', 'Myth Bust': '💥' };
-    const emoji = pillarEmoji[script.pillar] || '🛠️';
-    const toolNames = [...new Set((script.points || []).map(p => p.toolName).filter(Boolean))];
-    const toolLine = toolNames.length ? `\n${toolNames.join(' → ')}` : '';
-    const allTags = buildTags(script, 12);
-    return `${emoji} ${script.topic}${toolLine}\n\nSave this. Follow @toolsforbuilders for one workflow every day.\n\n${allTags.join(' ')}`;
-  }
-  return `🛠️ Daily AI Workflow\n\nFollow @toolsforbuilders for one practical AI workflow every day.\n\n${[...CORE_TAGS, BRAND_TAG].join(' ')}`;
-}
-
-function generateTikTokCaption(script) {
-  if (!script) return `🛠️ AI workflow for solopreneurs\n\n${[...CORE_TAGS, BRAND_TAG].slice(0, 5).join(' ')}`;
-
-  const hookLine = script.hookTTS
-    ? script.hookTTS.split('.')[0].trim()
-    : script.topic;
-
-  const tools = [...new Set((script.points || []).map(p => p.toolName).filter(Boolean))];
-  const toolLine = tools.length ? `\nTools: ${tools.join(' → ')}` : '';
-
-  const tags = buildTags(script, 5);
-
-  return `${hookLine}${toolLine}\n\nSave this 👇 Follow @toolsforbuilders for one AI workflow every day.\n\n${tags.join(' ')}`;
-}
-
-function generateYouTubeDescription(script) {
-  const ytTags = buildTags(script, 5);
-  return script
-    ? `${script.topic}\n\nSave this workflow. Subscribe for one AI tool workflow every day.\n\n${ytTags.join(' ')}`
-    : `AI tools for solopreneurs. Subscribe for more.\n\n${[...CORE_TAGS, BRAND_TAG].slice(0, 5).join(' ')}`;
-}
 
 function generateArchiveEntry(script, postResults) {
   return {
@@ -146,34 +71,63 @@ function generatePerfLogEntry(script, postResults) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Tests
+// Tests — Now testing the unified caption framework directly
 // ─────────────────────────────────────────────────────────────────────────────
 
-describe('Caption Parity', () => {
+describe('Caption Framework Parity', () => {
+  test('generatePlatformContent returns all platforms', () => {
+    const content = generatePlatformContent(MOCK_SCRIPT);
+    assert.ok(content.instagram, 'Should have instagram');
+    assert.ok(content.youtube, 'Should have youtube');
+    assert.ok(content.tiktok, 'Should have tiktok');
+  });
+
+  test('Instagram caption from framework matches direct call', () => {
+    const fromFramework = generatePlatformContent(MOCK_SCRIPT).instagram.caption;
+    const direct = generateInstagramCaption(MOCK_SCRIPT);
+    assert.strictEqual(fromFramework, direct, 'Framework and direct call should match');
+  });
+
+  test('YouTube content from framework matches direct call', () => {
+    const fromFramework = generatePlatformContent(MOCK_SCRIPT).youtube;
+    const direct = generateYouTubeContent(MOCK_SCRIPT);
+    assert.strictEqual(fromFramework.title, direct.title, 'YouTube titles should match');
+    assert.strictEqual(fromFramework.description, direct.description, 'YouTube descriptions should match');
+    assert.deepStrictEqual(fromFramework.backendTags, direct.backendTags, 'YouTube backendTags should match');
+  });
+
+  test('TikTok caption from framework matches direct call', () => {
+    const fromFramework = generatePlatformContent(MOCK_SCRIPT).tiktok.caption;
+    const direct = generateTikTokCaption(MOCK_SCRIPT);
+    assert.strictEqual(fromFramework, direct, 'Framework and direct call should match');
+  });
+});
+
+describe('Instagram Caption Parity', () => {
   test('Instagram caption has pillar emoji', () => {
-    const caption = generateCaption(MOCK_SCRIPT);
+    const caption = generateInstagramCaption(MOCK_SCRIPT);
     assert.ok(caption.startsWith('⚙️'), 'Workflow pillar should use ⚙️ emoji');
   });
 
   test('Instagram caption has topic', () => {
-    const caption = generateCaption(MOCK_SCRIPT);
+    const caption = generateInstagramCaption(MOCK_SCRIPT);
     assert.ok(caption.includes(MOCK_SCRIPT.topic), 'Caption should include topic');
   });
 
   test('Instagram caption has tool names', () => {
-    const caption = generateCaption(MOCK_SCRIPT);
+    const caption = generateInstagramCaption(MOCK_SCRIPT);
     assert.ok(caption.includes('Perplexity'), 'Caption should include tool names');
     assert.ok(caption.includes('Claude'), 'Caption should include tool names');
   });
 
   test('Instagram caption has CTA', () => {
-    const caption = generateCaption(MOCK_SCRIPT);
+    const caption = generateInstagramCaption(MOCK_SCRIPT);
     assert.ok(caption.includes('Save this'), 'Caption should include save CTA');
     assert.ok(caption.includes('@toolsforbuilders'), 'Caption should include brand');
   });
 
   test('Instagram caption has correct hashtag count', () => {
-    const caption = generateCaption(MOCK_SCRIPT);
+    const caption = generateInstagramCaption(MOCK_SCRIPT);
     const hashtags = caption.match(/#\w+/g) || [];
     assert.ok(hashtags.length >= 4 && hashtags.length <= 12, `Hashtag count should be 4-12, got ${hashtags.length}`);
   });
@@ -195,23 +149,45 @@ describe('TikTok Caption Parity', () => {
     const hashtags = caption.match(/#\w+/g) || [];
     assert.ok(hashtags.length <= 5, `TikTok hashtag count should be ≤5, got ${hashtags.length}`);
   });
+
+  test('TikTok caption has TikTok-specific tags', () => {
+    const caption = generateTikTokCaption(MOCK_SCRIPT);
+    assert.ok(caption.includes('#LearnOnTikTok'), 'TikTok should include #LearnOnTikTok');
+    assert.ok(caption.includes('#TikTokTips'), 'TikTok should include #TikTokTips');
+  });
+
+  test('TikTok caption does NOT have IG-specific tags', () => {
+    const caption = generateTikTokCaption(MOCK_SCRIPT);
+    assert.ok(!caption.includes('#workflowautomation'), 'TikTok should NOT include #workflowautomation');
+    assert.ok(!caption.includes('#digitalnomadlife'), 'TikTok should NOT include #digitalnomadlife');
+  });
 });
 
 describe('YouTube Description Parity', () => {
-  test('YouTube description has topic', () => {
-    const desc = generateYouTubeDescription(MOCK_SCRIPT);
-    assert.ok(desc.includes(MOCK_SCRIPT.topic), 'YouTube description should include topic');
+  test('YouTube title includes #Shorts', () => {
+    const { title } = generateYouTubeContent(MOCK_SCRIPT);
+    assert.ok(title.includes('#Shorts'), 'YouTube title should include #Shorts');
+  });
+
+  test('YouTube title is ≤100 characters', () => {
+    const { title } = generateYouTubeContent(MOCK_SCRIPT);
+    assert.ok(title.length <= 100, `YouTube title should be ≤100 chars, got ${title.length}`);
   });
 
   test('YouTube description has subscribe CTA', () => {
-    const desc = generateYouTubeDescription(MOCK_SCRIPT);
-    assert.ok(desc.includes('Subscribe'), 'YouTube description should include subscribe CTA');
+    const { description } = generateYouTubeContent(MOCK_SCRIPT);
+    assert.ok(description.includes('Subscribe'), 'YouTube description should include subscribe CTA');
   });
 
   test('YouTube description has max 5 hashtags', () => {
-    const desc = generateYouTubeDescription(MOCK_SCRIPT);
-    const hashtags = desc.match(/#\w+/g) || [];
+    const { description } = generateYouTubeContent(MOCK_SCRIPT);
+    const hashtags = description.match(/#\w+/g) || [];
     assert.ok(hashtags.length <= 5, `YouTube hashtag count should be ≤5, got ${hashtags.length}`);
+  });
+
+  test('YouTube backendTags is an array', () => {
+    const { backendTags } = generateYouTubeContent(MOCK_SCRIPT);
+    assert.ok(Array.isArray(backendTags), 'backendTags should be an array');
   });
 });
 
@@ -274,14 +250,24 @@ export async function runParityCheck() {
   const failures = [];
   
   try {
-    // Test Instagram caption structure
-    const caption = generateCaption(MOCK_SCRIPT);
+    // Test unified framework
+    const content = generatePlatformContent(MOCK_SCRIPT);
+    
+    // Test Instagram
+    const caption = content.instagram.caption;
     if (!caption.startsWith('⚙️')) failures.push('Instagram caption missing pillar emoji');
     if (!caption.includes(MOCK_SCRIPT.topic)) failures.push('Instagram caption missing topic');
     
-    // Test TikTok caption structure  
-    const tikTok = generateTikTokCaption(MOCK_SCRIPT);
+    // Test TikTok
+    const tikTok = content.tiktok.caption;
     if (!tikTok.includes('Tools:')) failures.push('TikTok caption missing tools line');
+    if (!tikTok.includes('#LearnOnTikTok')) failures.push('TikTok caption missing #LearnOnTikTok');
+    if (tikTok.includes('#workflowautomation')) failures.push('TikTok has IG-specific tag');
+    
+    // Test YouTube
+    const { title, description } = content.youtube;
+    if (!title.includes('#Shorts')) failures.push('YouTube title missing #Shorts');
+    if (!description.includes('Subscribe')) failures.push('YouTube description missing Subscribe');
     
     // Test archive entry structure
     const entry = generateArchiveEntry(MOCK_SCRIPT, {});

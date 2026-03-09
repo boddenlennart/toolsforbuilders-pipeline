@@ -6,13 +6,13 @@
       "id": "reel-perplexity-vs-gemini-deep-research",
       "pillar": "Comparison",
       "status": "posted",
-      "topic": "Perplexity vs Gemini Deep Research \u2014 not interchangeable",
+      "topic": "Perplexity vs Gemini Deep Research — not interchangeable",
       "hookHeadline": "You're using the\nwrong research tool\nfor the job",
       "hookSub": "Perplexity and Gemini are not the same.",
       "hookTTS": "You're treating Perplexity and Gemini Deep Research like they're the same tool. They're not. And that's why your research takes twice as long.",
       "agitateMain": "One gives citations fast",
-      "agitateBridge": "One gives depth \u2014 but only if you ask right",
-      "agitateTTS": "Perplexity is a citation machine. Gemini goes narrative. Use the wrong one for the wrong job \u2014 and you rewrite everything.",
+      "agitateBridge": "One gives depth — but only if you ask right",
+      "agitateTTS": "Perplexity is a citation machine. Gemini goes narrative. Use the wrong one for the wrong job — and you rewrite everything.",
       "points": [
         {
           "label": "USE PERPLEXITY",
@@ -24,7 +24,7 @@
             "Returns in under 60 seconds",
             "Numbered citations, every claim clickable"
           ],
-          "quickWin": "\u2192 perplexity.ai (free tier, 5 Pro searches/day)",
+          "quickWin": "→ perplexity.ai (free tier, 5 Pro searches/day)",
           "tts": "Perplexity with Academic Focus mode. Prompt: give me five stats with sources. Sixty seconds, peer-reviewed only. No blog noise."
         },
         {
@@ -32,13 +32,13 @@
           "toolName": "Gemini",
           "verdict": "Narrative depth for complex or policy topics",
           "bullets": [
-            "Use Deep Research mode (takes 5\u201310 min)",
+            "Use Deep Research mode (takes 5–10 min)",
             "Prompt: 'Deep research: explain [topic] landscape for a non-expert'",
             "Cross-references dozens of sources",
             "Returns a structured report, not a list"
           ],
-          "quickWin": "\u2192 gemini.google.com (Tools \u2192 Deep Research)",
-          "tts": "Last step \u2014 and this is the one most people skip. For policy, strategy, or anything narrative \u2014 switch to Gemini Deep Research. It takes five minutes. It cross-references dozens of sources. The output is a full report."
+          "quickWin": "→ gemini.google.com (Tools → Deep Research)",
+          "tts": "Last step — and this is the one most people skip. For policy, strategy, or anything narrative — switch to Gemini Deep Research. It takes five minutes. It cross-references dozens of sources. The output is a full report."
         }
       ],
       "proofStat": "Right tool.\nFaster research.",
@@ -56,7 +56,7 @@
       "id": "reel-notebooklm-briefing-document",
       "pillar": "Hidden Feature",
       "status": "used",
-      "topic": "NotebookLM Briefing Document \u2014 the underused feature that structures chaos",
+      "topic": "NotebookLM Briefing Document — the underused feature that structures chaos",
       "hookHeadline": "NotebookLM does more\nthan podcasts.\nMost people miss this.",
       "hookSub": "The Briefing Document feature changes everything.",
       "hookTTS": "Everyone uses NotebookLM for the podcast summary. Almost nobody uses the feature that's actually more useful. Here's what it is.",
@@ -67,31 +67,31 @@
         {
           "label": "STEP 01",
           "toolName": "NotebookLM",
-          "verdict": "Upload your raw sources \u2014 messy is fine",
+          "verdict": "Upload your raw sources — messy is fine",
           "bullets": [
             "Upload interviews, PDFs, transcripts, articles",
             "No need to organize them first",
             "Up to 50 sources per notebook",
-            "Drag and drop \u2014 done"
+            "Drag and drop — done"
           ],
-          "quickWin": "\u2192 notebooklm.google.com (free)",
-          "tts": "Open NotebookLM and upload your raw sources. Transcripts, PDFs, rough notes \u2014 doesn't matter how messy. Up to fifty sources per notebook."
+          "quickWin": "→ notebooklm.google.com (free)",
+          "tts": "Open NotebookLM and upload your raw sources. Transcripts, PDFs, rough notes — doesn't matter how messy. Up to fifty sources per notebook."
         },
         {
           "label": "STEP 02",
           "toolName": "NotebookLM",
-          "verdict": "Click Briefing Document \u2014 not Audio Overview",
+          "verdict": "Click Briefing Document — not Audio Overview",
           "bullets": [
             "Go to Studio panel on the right",
             "Click 'Briefing Document' (not Audio Overview)",
             "It generates a hierarchical structured outline",
             "Every section links back to source"
           ],
-          "quickWin": "\u2192 Studio panel \u2192 Briefing Document",
-          "tts": "Last step \u2014 go to the Studio panel on the right. Click Briefing Document, not Audio Overview. It generates a hierarchical outline of your uploads \u2014 every section links back to its source."
+          "quickWin": "→ Studio panel → Briefing Document",
+          "tts": "Last step — go to the Studio panel on the right. Click Briefing Document, not Audio Overview. It generates a hierarchical outline of your uploads — every section links back to its source."
         }
       ],
-      "proofStat": "2 hours of note chaos \u2192 structured outline in 90 seconds",
+      "proofStat": "2 hours of note chaos → structured outline in 90 seconds",
       "proofContext": "Every section linked to its source.\nNo manual organization ever again.",
       "proofTTS": "I used to spend an hour organizing research before writing. Now I upload everything and let NotebookLM structure it. Ninety seconds. Every time.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
@@ -106,13 +106,13 @@
       "id": "reel-n8n-vs-make-cost",
       "pillar": "Time/Money Math",
       "status": "posted",
-      "topic": "n8n self-hosted vs Make.com \u2014 the real cost at scale",
+      "topic": "n8n self-hosted vs Make.com — the real cost at scale",
       "hookHeadline": "Make.com: $10/mo\nn8n: $5/mo\nSame workflows.",
       "hookSub": "Here's where the money goes.",
       "hookTTS": "Make costs ten dollars a month. n8n self-hosted costs five. Same workflows. Here's exactly why.",
-      "agitateMain": "Credits aren't operations \u2014 they're per module action",
+      "agitateMain": "Credits aren't operations — they're per module action",
       "agitateBridge": "Five steps in a workflow. Five credits. Every single run.",
-      "agitateTTS": "Make charges per module action, not per run. Five steps in a scenario \u2014 five credits, every time it fires.",
+      "agitateTTS": "Make charges per module action, not per run. Five steps in a scenario — five credits, every time it fires.",
       "points": [
         {
           "label": "THE MATH",
@@ -120,29 +120,29 @@
           "verdict": "Real workflow, daily run, Core plan gone in days",
           "bullets": [
             "A 5-step workflow on 100 items = 500 credits per run",
-            "Run it daily = 15,000 credits/month \u2014 5,000 over the Core plan limit",
+            "Run it daily = 15,000 credits/month — 5,000 over the Core plan limit",
             "n8n self-hosted: zero execution limits, ever",
             "$5/month VPS on Hetzner or DigitalOcean covers it"
           ],
-          "quickWin": "\u2192 n8n.io/pricing (Community Edition, free)",
-          "tts": "Five steps on a hundred items \u2014 five hundred credits per run. Run it daily and that's fifteen thousand credits a month. The Core plan limit is ten thousand. n8n has no limit."
+          "quickWin": "→ n8n.io/pricing (Community Edition, free)",
+          "tts": "Five steps on a hundred items — five hundred credits per run. Run it daily and that's fifteen thousand credits a month. The Core plan limit is ten thousand. n8n has no limit."
         },
         {
           "label": "STEP 01",
           "toolName": "n8n",
           "verdict": "Deploy on a $5 VPS in under 2 hours",
           "bullets": [
-            "Hetzner CX22 or DigitalOcean Basic \u2014 $5/mo",
+            "Hetzner CX22 or DigitalOcean Basic — $5/mo",
             "One Docker command to install n8n",
-            "Same visual canvas as Make \u2014 drag and drop",
+            "Same visual canvas as Make — drag and drop",
             "Official guide at docs.n8n.io/hosting"
           ],
-          "quickWin": "\u2192 docs.n8n.io/hosting (official setup guide)",
+          "quickWin": "→ docs.n8n.io/hosting (official setup guide)",
           "tts": "Deploy on a five-dollar Hetzner or DigitalOcean server. One Docker command. n8n's official guide covers the full setup. Two hours once, then it runs forever."
         }
       ],
       "proofStat": "Same workflows. Fixed bill. No credit surprises.",
-      "proofContext": "Make Core: $10/month, 10,000 credits \u2014 gone fast on real workflows.\nn8n self-hosted: $5/month VPS, unlimited runs.\nSame drag-and-drop canvas. Same integrations.",
+      "proofContext": "Make Core: $10/month, 10,000 credits — gone fast on real workflows.\nn8n self-hosted: $5/month VPS, unlimited runs.\nSame drag-and-drop canvas. Same integrations.",
       "proofTTS": "I switched from Make last year. Same automations, same results. Five dollars a month instead of ten. No credit math, ever.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
@@ -158,7 +158,7 @@
       "id": "reel-descript-overdub-fix",
       "pillar": "Hidden Feature",
       "status": "needs-review",
-      "topic": "Descript Overdub \u2014 fix mispronounced words by typing, not re-recording",
+      "topic": "Descript Overdub — fix mispronounced words by typing, not re-recording",
       "hookHeadline": "Stop re-recording\nwhole sections.\nType the fix instead.",
       "hookSub": "Descript fixes your voice by typing.",
       "hookTTS": "You re-record an entire section because you mispronounced one word. I fix it by typing the correction.",
@@ -169,14 +169,14 @@
         {
           "label": "STEP 01",
           "toolName": "Descript",
-          "verdict": "Train Overdub with 10 minutes of your voice",
+          "verdict": "Train Overdub with at least 10 minutes of your voice",
           "bullets": [
             "Go to Overdub in left sidebar",
             "Upload 10-30 minutes of clear English speech",
-            "Descript clones your voice in 24\u201348 hours after uploading your audio samples",
-            "One-time setup \u2014 works on all future projects"
+            "Descript clones your voice in 24–48 hours after uploading your audio samples",
+            "One-time setup — works on all future projects"
           ],
-          "quickWin": "\u2192 descript.com (Creator plan, $24/mo)",
+          "quickWin": "→ descript.com (Creator plan, $24/mo)",
           "tts": "Descript clones your voice in 24 to 48 hours. One-time setup."
         },
         {
@@ -189,11 +189,11 @@
             "Descript re-renders that segment in your voice",
             "Matches surrounding audio automatically"
           ],
-          "quickWin": "\u2192 Works on any existing recording",
+          "quickWin": "→ Works on any existing recording",
           "tts": "Find the mistake in the transcript, type the correct word, and Descript re-renders that segment in your cloned voice. Matches surrounding audio. Undetectable."
         }
       ],
-      "proofStat": "20-minute re-record \u2192 30-second fix",
+      "proofStat": "20-minute re-record → 30-second fix",
       "proofContext": "Ten minutes of training audio.\nEvery future mistake fixed by typing.\nNot re-recording.",
       "proofTTS": "I fix mispronunciations in under a minute now. The audio is indistinguishable from a live recording.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
@@ -213,20 +213,20 @@
       "hookTTS": "You add more AI tools, put in more hours, and output stays flat. Not a tool problem.",
       "agitateMain": "AI generates volume. Not always value.",
       "agitateBridge": "Polished output isn't the same as good output",
-      "agitateTTS": "HBR named it workslop \u2014 AI-polished content that looks professional but offloads thinking onto your reader.",
+      "agitateTTS": "HBR named it workslop — AI-polished content that looks professional but offloads thinking onto your reader.",
       "points": [
         {
           "label": "THE FINDING",
           "toolName": "Research",
-          "verdict": "AI intensifies work \u2014 it doesn't reduce it",
+          "verdict": "AI intensifies work — it doesn't reduce it",
           "bullets": [
             "Berkeley research found AI intensifies work without reducing it",
             "No consistent productivity gains across studies",
             "The variable: how you deploy, not which tool",
             "Judgment-heavy tasks see the biggest losses"
           ],
-          "quickWin": "\u2192 Source: HBR 2024, Berkeley productivity research (study conducted April-December 2024)",
-          "tts": "Berkeley research found no consistent productivity gains. The variable isn't the tool \u2014 it's how you deploy it."
+          "quickWin": "→ Source: HBR 2024, Berkeley productivity research (study conducted April-December 2024)",
+          "tts": "Berkeley research found no consistent productivity gains. The variable isn't the tool — it's how you deploy it."
         },
         {
           "label": "THE FIX",
@@ -238,12 +238,12 @@
             "One rule: if it requires your expertise, keep it",
             "Automate repetition. Not thinking."
           ],
-          "quickWin": "\u2192 Rule: automate repetition, not judgment",
-          "tts": "Last step \u2014 and this is the uncomfortable rule. Use AI to generate, never to decide. Automate repetition. Keep the judgment calls."
+          "quickWin": "→ Rule: automate repetition, not judgment",
+          "tts": "Last step — and this is the uncomfortable rule. Use AI to generate, never to decide. Automate repetition. Keep the judgment calls."
         }
       ],
-      "proofStat": "More AI \u2260 more output. Deployment is the variable.",
-      "proofContext": "HBR researchers named it workslop.\nAI-polished output that offloads thinking onto your reader.\nMore tools, more workslop \u2014 unless you keep judgment in-house.",
+      "proofStat": "More AI ≠ more output. Deployment is the variable.",
+      "proofContext": "HBR researchers named it workslop.\nAI-polished output that offloads thinking onto your reader.\nMore tools, more workslop — unless you keep judgment in-house.",
       "proofTTS": "HBR named the failure mode: workslop. AI-polished content that offloads the thinking. Keep judgment calls human. Generation is AI's job.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
@@ -256,7 +256,7 @@
       "id": "reel-claude-extended-thinking",
       "pillar": "Workflow",
       "status": "needs-review",
-      "topic": "Claude Extended Thinking \u2014 when to use it and when it wastes your time",
+      "topic": "Claude Extended Thinking — when to use it and when it wastes your time",
       "hookHeadline": "Claude's Extended\nThinking is costing\nyou time",
       "hookSub": "Most people use it wrong.",
       "hookTTS": "Claude's Extended Thinking saves you an hour or wastes twenty minutes. Depends entirely on when you activate it.",
@@ -267,32 +267,32 @@
         {
           "label": "TURN IT OFF",
           "toolName": "Claude",
-          "verdict": "Drafts, captions, rewrites \u2014 off by default",
+          "verdict": "Drafts, captions, rewrites — off by default",
           "bullets": [
             "Writing tasks: off",
             "Summarization: off",
             "Translation or reformatting: off",
             "Anything under 2 steps: off"
           ],
-          "quickWin": "\u2192 Model selector (top of chat) \u2192 Extended thinking toggle",
-          "tts": "Turn it off for writing tasks, summaries, captions, rewrites \u2014 anything one or two steps. Toggle off in the model selector. Same output, thirty seconds."
+          "quickWin": "→ Model selector (top of chat) → Extended thinking toggle",
+          "tts": "Turn it off for writing tasks, summaries, captions, rewrites — anything one or two steps. Toggle off in the model selector. Same output, thirty seconds."
         },
         {
           "label": "TURN IT ON",
           "toolName": "Claude",
-          "verdict": "Strategy, debugging, planning \u2014 on",
+          "verdict": "Strategy, debugging, planning — on",
           "bullets": [
             "Business strategy decisions: on",
             "Debugging complex code: on",
             "Multi-step planning: on",
             "Anything requiring reasoning chains: on"
           ],
-          "quickWin": "\u2192 Pays off on problems with >3 steps",
-          "tts": "Strategy decisions, debugging, multi-step planning \u2014 turn it on. Problems with more than three steps see real quality gains. Two rules."
+          "quickWin": "→ Pays off on problems with >3 steps",
+          "tts": "Strategy decisions, debugging, multi-step planning — turn it on. Problems with more than three steps see real quality gains. Two rules."
         }
       ],
       "proofStat": "Extended thinking on for strategy. Off for everything else.",
-      "proofContext": "Extended Thinking: on for strategy.\nOff for everything else.\nSame quality on simple tasks \u2014 no waiting.",
+      "proofContext": "Extended Thinking: on for strategy.\nOff for everything else.\nSame quality on simple tasks — no waiting.",
       "proofTTS": "Complex strategy with Extended Thinking on: deeper reasoning, worth the wait. Simple caption: same output, minutes wasted.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
@@ -321,9 +321,9 @@
             "Go to Automations in Beehiiv dashboard",
             "Use the 'Re-engagement automation flow (90-day inactivity)' template from Quick start templates",
             "Review the list monthly",
-            "Export before deleting \u2014 keep the data"
+            "Export before deleting — keep the data"
           ],
-          "quickWin": "\u2192 beehiiv.com (free up to 2,500 subscribers)",
+          "quickWin": "→ beehiiv.com (free up to 2,500 subscribers)",
           "tts": "In Beehiiv Automations, create a rule: if inactive for ninety days, tag as inactive. Review monthly. Export a backup before you delete anything."
         },
         {
@@ -333,15 +333,15 @@
           "bullets": [
             "Filter by inactive tag",
             "Select all",
-            "Delete \u2014 not unsubscribe, delete",
+            "Delete — not unsubscribe, delete",
             "Open rate climbs as inactive weight lifts"
           ],
-          "quickWin": "\u2192 Deliverability improves as inactive weight clears",
-          "tts": "Filter by inactive tag, select all, delete. Not unsubscribe \u2014 delete. Open rate climbs as dead weight clears. Smaller list, better numbers."
+          "quickWin": "→ Deliverability improves as inactive weight clears",
+          "tts": "Filter by inactive tag, select all, delete. Not unsubscribe — delete. Open rate climbs as dead weight clears. Smaller list, better numbers."
         }
       ],
       "proofStat": "Fewer subscribers. Better deliverability. Higher open rate.",
-      "proofContext": "Inactive subscribers drag open rate down.\nLow open rates signal spam to email providers.\nDelete the dead weight \u2014 your real readers start seeing you again.",
+      "proofContext": "Inactive subscribers drag open rate down.\nLow open rates signal spam to email providers.\nDelete the dead weight — your real readers start seeing you again.",
       "proofTTS": "List hygiene is the most underrated deliverability lever. Inactive subscribers hurt you. Delete them.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
@@ -355,7 +355,7 @@
       "pillar": "Comparison",
       "status": "needs-review",
       "topic": "Gemini AI Studio gives 500-1000 free images/day vs 100 in Gemini App",
-      "hookHeadline": "Gemini App: 100/day \u2014 AI Studio: 500-1,000/day",
+      "hookHeadline": "Gemini App: 100/day — AI Studio: 500-1,000/day",
       "hookSub": "Same tool, different limits",
       "hookTTS": "You hit Gemini image limit in one product shoot. Free workaround: ten times the daily quota.",
       "agitateMain": "You hit the App limit by noon",
@@ -371,7 +371,7 @@
             "Same Google account, no new login",
             "Free tier: 500-1,000 images/day"
           ],
-          "quickWin": "\u2192 aistudio.google.com",
+          "quickWin": "→ aistudio.google.com",
           "tts": "Go to AI Studio dot google dot com. Same account, five hundred to one thousand images per day for free."
         },
         {
@@ -383,7 +383,7 @@
             "Write prompt: product photo style, white background",
             "Generate 3-5 variations per concept"
           ],
-          "quickWin": "\u2192 Imagen 3",
+          "quickWin": "→ Imagen 3",
           "tts": "Select Imagen three model. Prompt with product photo style, white background, studio lighting. Generate five variations per concept."
         },
         {
@@ -395,13 +395,13 @@
             "Download directly from AI Studio",
             "Add text overlays in Canva if needed"
           ],
-          "quickWin": "\u2192 Zero stock photo cost",
-          "tts": "Last step \u2014 download the best one. Add text in Canva if needed. Five hundred images daily, zero cost."
+          "quickWin": "→ Zero stock photo cost",
+          "tts": "Last step — download the best one. Add text in Canva if needed. Five hundred images daily, zero cost."
         }
       ],
       "proofStat": "AI Studio: 500-1,000 free images/day",
-      "proofContext": "Gemini App caps you at 100 images per day. AI Studio gives 5-10x that limit on the same free account. Most creators don't know AI Studio exists \u2014 they hit the App limit and assume that's all Gemini offers.",
-      "proofTTS": "AI Studio: five hundred to one thousand free images daily. Same account as Gemini App \u2014 ten times the limit.",
+      "proofContext": "Gemini App caps you at 100 images per day. AI Studio gives 5-10x that limit on the same free account. Most creators don't know AI Studio exists — they hit the App limit and assume that's all Gemini offers.",
+      "proofTTS": "AI Studio: five hundred to one thousand free images daily. Same account as Gemini App — ten times the limit.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
         {
@@ -426,7 +426,7 @@
       "pillar": "Time/Money Math",
       "status": "needs-review",
       "topic": "NotebookLM Audio Overview turns research into passive listening",
-      "hookHeadline": "Research while you drive \u2014 NotebookLM",
+      "hookHeadline": "Research while you drive — NotebookLM",
       "hookSub": "Turn reading into listening",
       "hookTTS": "You block two hours for deep research. One interruption kills it. That reading sits untouched for three days.",
       "agitateMain": "Research only happens at your desk",
@@ -442,7 +442,7 @@
             "Upload PDFs, paste article URLs, add Google Docs",
             "Supports up to 50 sources per notebook on free"
           ],
-          "quickWin": "\u2192 notebooklm.google.com",
+          "quickWin": "→ notebooklm.google.com",
           "tts": "Create a notebook in NotebookLM. Upload your PDFs, paste article links, add Google Docs. Fifty sources max on free tier."
         },
         {
@@ -454,8 +454,8 @@
             "AI creates podcast-style discussion of all sources",
             "Two AI hosts debate and synthesize key points"
           ],
-          "quickWin": "\u2192 10-20 min podcast",
-          "tts": "Generate Audio Overview. Two AI hosts synthesize everything into a podcast-style discussion \u2014 ten to twenty minutes long."
+          "quickWin": "→ 10-20 min podcast",
+          "tts": "Generate Audio Overview. Two AI hosts synthesize everything into a podcast-style discussion — ten to twenty minutes long."
         },
         {
           "label": "STEP 03",
@@ -466,12 +466,12 @@
             "Listen during commute, workout, errands",
             "Absorb research without screen time"
           ],
-          "quickWin": "\u2192 Reclaim 2 hours",
-          "tts": "Last step \u2014 download it. Listen during your commute or workout. Same research, zero desk time required."
+          "quickWin": "→ Reclaim 2 hours",
+          "tts": "Last step — download it. Listen during your commute or workout. Same research, zero desk time required."
         }
       ],
       "proofStat": "Free + unlimited Audio Overviews",
-      "proofContext": "NotebookLM is completely free with a Google account. Audio Overviews are unlimited \u2014 no credit system, no monthly caps. Most researchers still print PDFs or block calendar time for reading. Audio Overview turns passive time (driving, walking, cooking) into research time.",
+      "proofContext": "NotebookLM is completely free with a Google account. Audio Overviews are unlimited — no credit system, no monthly caps. Most researchers still print PDFs or block calendar time for reading. Audio Overview turns passive time (driving, walking, cooking) into research time.",
       "proofTTS": "NotebookLM is free with unlimited Audio Overviews. Most people still print PDFs. You turn drive time into research time.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
@@ -499,7 +499,7 @@
       "topic": "Custom GPTs eliminate re-explaining repetitive tasks",
       "hookHeadline": "Stop re-explaining yourself to ChatGPT",
       "hookSub": "Custom GPTs remember forever",
-      "hookTTS": "You paste your brand guidelines into ChatGPT every single time. Custom GPTs remember them forever \u2014 zero re-explaining.",
+      "hookTTS": "You paste your brand guidelines into ChatGPT every single time. Custom GPTs remember them forever — zero re-explaining.",
       "agitateMain": "You repeat the same instructions",
       "agitateBridge": "Every conversation starts blank",
       "agitateTTS": "Write caption in my brand voice, avoid corporate speak. Next chat, paste it all again.",
@@ -513,7 +513,7 @@
             "Name it something clear (My Caption Writer)",
             "Add instructions: tone, format, things to avoid"
           ],
-          "quickWin": "\u2192 chat.openai.com",
+          "quickWin": "→ chat.openai.com",
           "tts": "Click Create a GPT in ChatGPT sidebar. Name it My Caption Writer. Add your tone rules, format preferences, and things to avoid."
         },
         {
@@ -525,7 +525,7 @@
             "Upload brand doc if you have one",
             "GPT learns your style from examples"
           ],
-          "quickWin": "\u2192 Style locked in",
+          "quickWin": "→ Style locked in",
           "tts": "Upload three to five of your best captions. Paste your brand doc. The GPT learns your exact style from real examples."
         },
         {
@@ -534,15 +534,15 @@
           "verdict": "Use it for every similar task",
           "bullets": [
             "Open that Custom GPT every time",
-            "Just describe the topic \u2014 it handles style",
+            "Just describe the topic — it handles style",
             "Consistent output, no re-explaining"
           ],
-          "quickWin": "\u2192 5-min captions",
-          "tts": "Open that Custom GPT every time. Describe the topic. It handles your style automatically \u2014 consistent captions in five minutes."
+          "quickWin": "→ 5-min captions",
+          "tts": "Open that Custom GPT every time. Describe the topic. It handles your style automatically — consistent captions in five minutes."
         }
       ],
       "proofStat": "Custom GPTs: free on all tiers",
-      "proofContext": "Custom GPTs are free on ChatGPT Free, Plus, and Pro. Most people paste their brand doc into every new chat instead. A Custom GPT eliminates that step forever \u2014 your instructions persist across all conversations. One-time setup, permanent memory.",
+      "proofContext": "Custom GPTs are free on ChatGPT Free, Plus, and Pro. Most people paste their brand doc into every new chat instead. A Custom GPT eliminates that step forever — your instructions persist across all conversations. One-time setup, permanent memory.",
       "proofTTS": "Custom GPTs free on all tiers. Most people repaste brand docs every chat. This remembers forever.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
@@ -562,13 +562,13 @@
       "id": "reel-perplexity-5-pro-searches-optimization",
       "pillar": "Time/Money Math",
       "status": "needs-review",
-      "topic": "Perplexity 5 Pro Searches daily \u2014 how to maximize free tier",
-      "hookHeadline": "5 Pro Searches daily \u2014 use them right",
+      "topic": "Perplexity 5 Pro Searches daily — how to maximize free tier",
+      "hookHeadline": "5 Pro Searches daily — use them right",
       "hookSub": "Most waste them on basic stuff",
       "hookTTS": "Perplexity gives five free Pro Searches daily. Most people burn them on questions basic search handles in seconds.",
       "agitateMain": "You burn Pro Searches on easy stuff",
       "agitateBridge": "Then you need deep research",
-      "agitateTTS": "You burn Pro Searches on basic questions. Need cited research for a proposal \u2014 searches gone.",
+      "agitateTTS": "You burn Pro Searches on basic questions. Need cited research for a proposal — searches gone.",
       "points": [
         {
           "label": "STEP 01",
@@ -579,7 +579,7 @@
             "Quick lookups: stats, dates, names",
             "Save Pro Searches for complex research"
           ],
-          "quickWin": "\u2192 perplexity.ai",
+          "quickWin": "→ perplexity.ai",
           "tts": "Use unlimited basic search for definitions and quick lookups. Save Pro Searches for when you actually need depth and citations."
         },
         {
@@ -591,7 +591,7 @@
             "Use for sourced stats in proposals",
             "When you need GPT-4 or Claude reasoning"
           ],
-          "quickWin": "\u2192 Citations included",
+          "quickWin": "→ Citations included",
           "tts": "Enable Pro Search for competitive research, cited stats, and when you need GPT-four or Claude reasoning under the hood."
         },
         {
@@ -603,12 +603,12 @@
             "Follow-up questions don't count as new searches",
             "Deep-dive one topic instead of scattered questions"
           ],
-          "quickWin": "\u2192 Resets tomorrow",
-          "tts": "Last step \u2014 batch your research. Use all five Pro Searches in one session. Follow-up questions are free. Limit resets tomorrow."
+          "quickWin": "→ Resets tomorrow",
+          "tts": "Last step — batch your research. Use all five Pro Searches in one session. Follow-up questions are free. Limit resets tomorrow."
         }
       ],
       "proofStat": "5 Pro Searches daily on free tier",
-      "proofContext": "Perplexity free tier gives 5 Pro Searches per day \u2014 these use GPT-4/Claude and include citations. Basic search is unlimited but doesn't use advanced models. Most users waste Pro Searches on simple questions that basic search handles fine. Strategic use means sourced research for proposals, competitive intel, and complex questions only.",
+      "proofContext": "Perplexity free tier gives 5 Pro Searches per day — these use GPT-4/Claude and include citations. Basic search is unlimited but doesn't use advanced models. Most users waste Pro Searches on simple questions that basic search handles fine. Strategic use means sourced research for proposals, competitive intel, and complex questions only.",
       "proofTTS": "Five Pro Searches daily, free tier. Most burn them on basic questions. Save for cited research.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
@@ -634,12 +634,12 @@
       "pillar": "Comparison",
       "status": "needs-review",
       "topic": "ElevenLabs voice cloning at $5/mo vs hiring voice talent",
-      "hookHeadline": "Voice talent: $100/video \u2014 ElevenLabs: $5/mo",
+      "hookHeadline": "Voice talent: $100/video — ElevenLabs: $5/mo",
       "hookSub": "Same voice, yours forever",
-      "hookTTS": "Voice talent costs one hundred per video. ElevenLabs clones your voice for five dollars monthly \u2014 unlimited.",
+      "hookTTS": "Voice talent costs one hundred per video. ElevenLabs clones your voice for five dollars monthly — unlimited.",
       "agitateMain": "You pay per video, every time",
       "agitateBridge": "Revisions cost you again",
-      "agitateTTS": "You pay a voice actor one hundred. Client wants revisions \u2014 another fifty.",
+      "agitateTTS": "You pay a voice actor one hundred. Client wants revisions — another fifty.",
       "points": [
         {
           "label": "STEP 01",
@@ -650,7 +650,7 @@
             "Upload to ElevenLabs voice cloning",
             "AI creates your voice model on Starter tier"
           ],
-          "quickWin": "\u2192 elevenlabs.io",
+          "quickWin": "→ elevenlabs.io",
           "tts": "Record five minutes of your voice. Upload to ElevenLabs. AI clones your voice on the five-dollar Starter plan."
         },
         {
@@ -662,8 +662,8 @@
             "Generate audio in seconds",
             "Revisions = regenerate, no extra cost"
           ],
-          "quickWin": "\u2192 Instant revisions",
-          "tts": "Paste your script. Generate audio in seconds. Revisions are instant \u2014 regenerate as many times as you need."
+          "quickWin": "→ Instant revisions",
+          "tts": "Paste your script. Generate audio in seconds. Revisions are instant — regenerate as many times as you need."
         },
         {
           "label": "STEP 03",
@@ -674,12 +674,12 @@
             "No booking talent, no studio time",
             "Consistent voice across all content"
           ],
-          "quickWin": "\u2192 $5 for 10 videos",
-          "tts": "Last step \u2014 create ten videos this month. Same voice, zero studio time. Five dollars for unlimited content versus one hundred per video."
+          "quickWin": "→ $5 for 10 videos",
+          "tts": "Last step — create ten videos this month. Same voice, zero studio time. Five dollars for unlimited content versus one hundred per video."
         }
       ],
       "proofStat": "Voice talent: $100/video vs $5/mo all-in",
-      "proofContext": "Professional voice talent on Fiverr costs $100-300 per video, with revision fees. ElevenLabs Starter at $5/mo includes voice cloning and generates unlimited audio once your voice is cloned. Break-even after your first video \u2014 every video after that is effectively free. Most solopreneurs creating 2-4 videos/month save $400-1,200 monthly.",
+      "proofContext": "Professional voice talent on Fiverr costs $100-300 per video, with revision fees. ElevenLabs Starter at $5/mo includes voice cloning and generates unlimited audio once your voice is cloned. Break-even after your first video — every video after that is effectively free. Most solopreneurs creating 2-4 videos/month save $400-1,200 monthly.",
       "proofTTS": "Voice talent costs one hundred per video. ElevenLabs Starter: five monthly, unlimited generations. First video breaks even.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [

@@ -208,6 +208,7 @@ async function checkImportChain() {
     { path: './alert.mjs', exports: ['sendAlert'] },
     { path: './approval.mjs', exports: ['requestApproval'] },
     { path: './instagram/quality-gate.mjs', exports: ['checkQuality'] },
+    { path: './instagram/caption-framework.mjs', exports: ['generatePlatformContent', 'generateInstagramCaption', 'generateYouTubeContent', 'generateTikTokCaption'] },
   ];
   
   for (const mod of modules) {
@@ -251,6 +252,30 @@ async function runParityCheck() {
   }
 }
 
+async function runCaptionFrameworkCheck() {
+  try {
+    const captionTestPath = join(__dirname, 'tests/caption-framework.test.mjs');
+    if (!existsSync(captionTestPath)) {
+      warn('Caption framework test', 'tests/caption-framework.test.mjs not found — skipping');
+      return;
+    }
+    
+    const { runCaptionFrameworkCheck: check } = await import('./tests/caption-framework.test.mjs');
+    if (typeof check === 'function') {
+      const result = await check();
+      if (result.passed) {
+        pass('Caption framework check passed');
+      } else {
+        fail('Caption framework check', result.failures?.join(', ') || 'Unknown failure');
+      }
+    } else {
+      warn('Caption framework test', 'runCaptionFrameworkCheck function not exported');
+    }
+  } catch (e) {
+    warn('Caption framework test', e.message);
+  }
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Main
 // ─────────────────────────────────────────────────────────────────────────────
@@ -269,6 +294,7 @@ async function main() {
   checkRequiredFiles();
   await checkImportChain();
   await runParityCheck();
+  await runCaptionFrameworkCheck();
   
   // Summary
   console.log('');

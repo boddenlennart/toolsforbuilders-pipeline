@@ -9,6 +9,7 @@
 import { readFileSync, writeFileSync, existsSync, appendFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { generatePlatformContent } from './instagram/caption-framework.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -40,8 +41,7 @@ if (idx === -1) {
 }
 const script = queue.posts[idx];
 
-// ── Import posting helpers from daily-crosspost ───────────────────────────────
-// We inline the key pieces rather than importing the full orchestrator
+// ── Import posting helpers ────────────────────────────────────────────────────
 const loadOpenClawConfig = () => JSON.parse(readFileSync('/root/.openclaw/openclaw.json', 'utf8'));
 
 async function uploadToR2ForTikTok(videoPath) {
@@ -50,144 +50,15 @@ async function uploadToR2ForTikTok(videoPath) {
   return upload(videoPath, key);
 }
 
-// ── Hashtag maps (shared across all platform caption generators) ──────────────
-// MUST MATCH daily-crosspost.mjs for parity
-
-const TOOL_TAGS = {
-  'perplexity': '#perplexityai',
-  'gemini': '#geminiapp',
-  'gemini deep research': '#geminiapp',
-  'claude': '#claudeai',
-  'chatgpt': '#chatgpt',
-  'notebooklm': '#notebooklm',
-  'midjourney': '#midjourney',
-  'n8n': '#n8nautomation',
-  'zapier': '#zapier',
-  'make': '#makeautomation',
-  'runway': '#runwayml',
-  'elevenlabs': '#elevenlabs',
-  'gpt': '#openai',
-  'openai': '#openai',
-  'suno': '#sunoai',
-  'kling': '#klingai',
-  'descript': '#descript',
-  'notion': '#notionai',
-  'canva': '#canva',
-  'gamma': '#gammaapp',
-};
-
-const PILLAR_TAGS = {
-  'Workflow': '#aiworkflow',
-  'Comparison': '#aicomparison',
-  'Hidden Feature': '#aihacks',
-  'Time/Money Math': '#savetime',
-  'Myth Bust': '#aidebunked',
-};
-
-// Hashtag strategy (updated 2026-03):
-// Sweet spot = 10k–500k posts. Mega-broad tags (#productivity, #ai) have 100M+ posts
-// and bury small accounts. Mid-tier niche tags win for discovery at our follower count.
-//
-// Structure per post:
-//   1. Pillar tag          — content-type (always)
-//   2. Tool-specific tags  — ONLY if that tool is featured in the video
-//   3. TIER_1              — core niche tags (always)
-//   4. TIER_2 by pillar    — topic-relevant mid-tier tags (curated per pillar, not random)
-//   5. Brand tag           — always last
-//
-// Instagram: up to 11 tags | YouTube: 5 tags (first 3 appear above video title)
-
-const BRAND_TAG = '#toolsforbuilders';
-
-// Always included — strong niche volume, right size for growing account
-const TIER_1_TAGS = ['#aitools', '#solopreneur', '#aiautomation'];
-
-// Topic-relevant tier2 tags per pillar — curated, not random.
-// All 10k–300k posts: competitive enough to be browsed, small enough to rank.
-const TIER_2_BY_PILLAR = {
-  'Workflow':       ['#workflowautomation', '#digitalnomadlife', '#buildingpublicly'],
-  'Comparison':     ['#onlinebusiness', '#creatoreconomy', '#growthhacking'],
-  'Hidden Feature': ['#contentcreator', '#growthhacking', '#buildingpublicly'],
-  'Time/Money Math':['#sidehustle', '#passiveincome', '#onlinebusiness'],
-  'Myth Bust':      ['#entrepreneurmindset', '#growthhacking', '#contentcreator'],
-  'default':        ['#onlinebusiness', '#contentcreator', '#workflowautomation'],
-};
-
-/**
- * Build a deduplicated hashtag array for any platform.
- * Priority order: pillar → tool-specific (featured tools only) → tier1 → tier2 (by pillar) → brand.
- * @param {object|null} script - Content queue script object
- * @param {number} max - Max number of tags to return
- * @returns {string[]} Array of hashtag strings
- */
-function buildTags(script, max = 12) {
-  if (!script) return [...TIER_1_TAGS, BRAND_TAG].slice(0, max);
-
-  // Only include tool tags for tools actually featured in the video
-  const toolNames = [...new Set((script.points || []).map(p => p.toolName).filter(Boolean))];
-  const toolTags = toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean);
-
-  const pillarTag = PILLAR_TAGS[script.pillar] || '#aiworkflow';
-  const tier2 = TIER_2_BY_PILLAR[script.pillar] || TIER_2_BY_PILLAR['default'];
-
-  return [...new Set([pillarTag, ...toolTags, ...TIER_1_TAGS, ...tier2, BRAND_TAG])].slice(0, max);
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-
-/**
- * Generate caption for Instagram (matches daily-crosspost.mjs exactly).
- */
-function generateCaption(script) {
-  if (script) {
-    const pillarEmoji = { 'Workflow': '⚙️', 'Comparison': '⚖️', 'Hidden Feature': '🔍', 'Time/Money Math': '💰', 'Myth Bust': '💥' };
-    const emoji = pillarEmoji[script.pillar] || '🛠️';
-    const toolNames = [...new Set((script.points || []).map(p => p.toolName).filter(Boolean))];
-    const toolLine = toolNames.length ? `\n${toolNames.join(' → ')}` : '';
-    const allTags = buildTags(script, 12);
-    return `${emoji} ${script.topic}${toolLine}\n\nSave this. Follow @toolsforbuilders for one workflow every day.\n\n${allTags.join(' ')}`;
-  }
-  return `🛠️ Daily AI Workflow\n\nFollow @toolsforbuilders for one practical AI workflow every day.\n\n${[...CORE_TAGS, BRAND_TAG].join(' ')}`;
-}
-
-/**
- * Generate a TikTok-optimised caption (matches daily-crosspost.mjs exactly).
- * First line = hook (scroll-stopper). Body = tools used. CTA + hashtags.
- */
-function generateTikTokCaption(script) {
-  if (!script) return `🛠️ AI workflow for solopreneurs\n\n${[...CORE_TAGS, BRAND_TAG].slice(0, 5).join(' ')}`;
-
-  // First line = hook (scroll-stopper on FYP — first sentence of hookTTS)
-  const hookLine = script.hookTTS
-    ? script.hookTTS.split('.')[0].trim()
-    : script.topic;
-
-  // Tool chain line
-  const tools = [...new Set((script.points || []).map(p => p.toolName).filter(Boolean))];
-  const toolLine = tools.length ? `\nTools: ${tools.join(' → ')}` : '';
-
-  // 5 tags max via shared buildTags helper
-  const tags = buildTags(script, 5);
-
-  return `${hookLine}${toolLine}\n\nSave this 👇 Follow @toolsforbuilders for one AI workflow every day.\n\n${tags.join(' ')}`;
-}
-
 async function main() {
   console.log(`\n🚀 Posting pre-approved reel: ${scriptId}`);
   console.log(`📹 Video: ${videoPath}`);
 
-  // Generate all captions upfront for dry-run preview
-  const igCaption = generateCaption(script);
-  const tikTokCaption = generateTikTokCaption(script);
-  const title = script?.topic ? `${script.topic} #Shorts` : 'AI Workflow for Solopreneurs #Shorts';
-  const ytTags = buildTags(script, 5);
-  const ytDescription = script
-    ? `${script.topic}\n\nSave this workflow. Subscribe for one AI tool workflow every day.\n\n${ytTags.join(' ')}`
-    : `AI tools for solopreneurs. Subscribe for more.`;
-  const ytBackendTags = ['AI tools', 'solopreneur', 'productivity', 'workflow', 'AI workflow',
-    ...(script?.pillar ? [script.pillar] : []),
-    ...((script?.points || []).map(p => p.toolName).filter(Boolean)),
-  ];
+  // Generate all platform content upfront via unified framework
+  const platformContent = generatePlatformContent(script);
+  const igCaption = platformContent.instagram.caption;
+  const tikTokCaption = platformContent.tiktok.caption;
+  const { title, description: ytDescription, backendTags: ytBackendTags } = platformContent.youtube;
 
   // ── Step 1: Upload to R2 ──────────────────────────────────────────────────
   let r2Url;
