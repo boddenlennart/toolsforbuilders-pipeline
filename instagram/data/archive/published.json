@@ -1,0 +1,108 @@
+{
+  "published": [
+    {
+      "id": "reel-perplexity-vs-gemini-deep-research",
+      "pillar": "Comparison",
+      "topic": "Perplexity vs Gemini Deep Research — not interchangeable",
+      "hookHeadline": "You're using the\nwrong research tool\nfor the job",
+      "postedAt": "2026-03-06T12:55:02.128Z",
+      "platforms": {
+        "instagram": {
+          "success": false,
+          "mediaId": null
+        },
+        "youtube": {
+          "success": false,
+          "videoId": null
+        },
+        "tiktok": {
+          "success": false,
+          "manual": false
+        }
+      }
+    },
+    {
+      "id": "reel-notebooklm-briefing-document",
+      "pillar": "Hidden Feature",
+      "topic": "NotebookLM Briefing Document — the underused feature that structures chaos",
+      "hookHeadline": null,
+      "postedAt": "2026-03-07T12:33:46.929Z",
+      "platforms": {
+        "instagram": {
+          "success": true,
+          "mediaId": null
+        },
+        "youtube": {
+          "success": true,
+          "videoId": null
+        },
+        "tiktok": {
+          "success": false,
+          "manual": true
+        }
+      }
+    },
+    {
+      "id": "reel-n8n-vs-make-cost",
+      "pillar": "Time/Money Math",
+      "status": "posted",
+      "topic": "n8n self-hosted vs Make.com — the real cost at scale",
+      "hookHeadline": "Make.com: $10/mo\nn8n: $5/mo\nSame workflows.",
+      "hookSub": "Here's where the money goes.",
+      "hookTTS": "Make costs ten dollars a month. n8n self-hosted costs five. Same workflows. Here's exactly why.",
+      "agitateMain": "Credits aren't operations — they're per module action",
+      "agitateBridge": "Five steps in a workflow. Five credits. Every single run.",
+      "agitateTTS": "Make charges per module action, not per run. Five steps in a scenario — five credits, every time it fires.",
+      "points": [
+        {
+          "label": "THE MATH",
+          "toolName": "n8n",
+          "verdict": "Real workflow, daily run, Core plan gone in days",
+          "bullets": [
+            "A 5-step workflow on 100 items = 500 credits per run",
+            "Run it daily = 15,000 credits/month — 5,000 over the Core plan limit",
+            "n8n self-hosted: zero execution limits, ever",
+            "$5/month VPS on Hetzner or DigitalOcean covers it"
+          ],
+          "quickWin": "→ n8n.io/pricing (Community Edition, free)",
+          "tts": "Five steps on a hundred items — five hundred credits per run. Run it daily and that's fifteen thousand credits a month. The Core plan limit is ten thousand. n8n has no limit."
+        },
+        {
+          "label": "STEP 01",
+          "toolName": "n8n",
+          "verdict": "Deploy on a $5 VPS in under 2 hours",
+          "bullets": [
+            "Hetzner CX22 or DigitalOcean Basic — $5/mo",
+            "One Docker command to install n8n",
+            "Same visual canvas as Make — drag and drop",
+            "Official guide at docs.n8n.io/hosting"
+          ],
+          "quickWin": "→ docs.n8n.io/hosting (official setup guide)",
+          "tts": "Deploy on a five-dollar Hetzner or DigitalOcean server. One Docker command. n8n's official guide covers the full setup. Two hours once, then it runs forever."
+        }
+      ],
+      "proofStat": "Same workflows. Fixed bill. No credit surprises.",
+      "proofContext": "Make Core: $10/month, 10,000 credits — gone fast on real workflows.\nn8n self-hosted: $5/month VPS, unlimited runs.\nSame drag-and-drop canvas. Same integrations.",
+      "proofTTS": "I switched from Make last year. Same automations, same results. Five dollars a month instead of ten. No credit math, ever.",
+      "ctaTTS": "Save this before you forget it. I drop one of these every day.",
+      "proofSource": "toolsforbuilders.com",
+      "ctaSaveText": "Save this before you forget it.",
+      "ctaHandle": "@toolsforbuilders",
+      "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
+      "ctaSecondary": "New post dropping tomorrow.",
+      "approvedAt": "2026-03-08T12:22:47.075Z",
+      "videoPath": "/root/.openclaw/workspace/scripts/instagram/data/samples/reels/reel-2026-03-08T12-19-43.mp4",
+      "postedAt": "2026-03-08T13:01:50.464Z",
+      "r2Url": "https://pub-eaeb2430ed1641509dc5b2dde7a70b0b.r2.dev/crosspost/1772974906386.mp4",
+      "igResult": {
+        "status": "ok",
+        "mediaId": "18175235710391756"
+      },
+      "ytResult": {
+        "success": true,
+        "url": "https://youtu.be/nFDTIRiChk8"
+      },
+      "igPostedAt": "2026-03-08T13:37:37.580Z"
+    }
+  ]
+}
