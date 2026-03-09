@@ -124,6 +124,27 @@
           "manual": false
         }
       }
+    },
+    {
+      "id": "reel-descript-overdub-fix",
+      "pillar": "Hidden Feature",
+      "topic": "Descript Overdub — fix mispronounced words by typing, not re-recording",
+      "hookHeadline": "Stop re-recording\nwhole sections.\nType the fix instead.",
+      "postedAt": "2026-03-09T13:25:02.560Z",
+      "platforms": {
+        "instagram": {
+          "success": true,
+          "mediaId": "18030966977792090"
+        },
+        "youtube": {
+          "success": true,
+          "videoId": "MNpETWHuVKI"
+        },
+        "tiktok": {
+          "success": false,
+          "manual": false
+        }
+      }
     }
   ]
 }

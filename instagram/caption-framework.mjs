@@ -231,31 +231,36 @@ export function generateYouTubeContent(script) {
   const backendTags = buildYouTubeBackendTags(script);
 
   // ─── TITLE ───────────────────────────────────────────────────────────────
+  // YouTube Shorts title strategy: keep under ~65 chars so nothing wraps/truncates
+  // on mobile. Drop the "| AI Tools for Solopreneurs" suffix — it eats display space
+  // without adding searchability. Tool name + action + #Shorts is enough.
   let title;
   const suffix = ' #Shorts';
   const maxTitleLength = 100;
 
+  // Target: under 65 chars visible before truncation on mobile
+  const mobileMax = 65;
+
   if (tools.length === 0) {
-    // No tools: truncate topic
-    const topicMax = maxTitleLength - ' | AI Tools for Solopreneurs'.length - suffix.length;
-    const shortTopic = truncateAtWord(script.topic, topicMax);
-    title = `${shortTopic} | AI Tools for Solopreneurs${suffix}`;
+    // No tools: just topic truncated + #Shorts
+    const topicMax = mobileMax - suffix.length;
+    title = `${truncateAtWord(script.topic, topicMax)}${suffix}`;
   } else if (tools.length === 1) {
-    // Single tool: "Tool: action/insight | AI Tools for Solopreneurs #Shorts"
+    // Single tool: "Descript: Fix mispronounced words by typing #Shorts"
     const tool = tools[0];
-    const actionMax = maxTitleLength - `${tool}: `.length - ' | AI Tools for Solopreneurs'.length - suffix.length;
-    const action = truncateAtWord(script.topic.replace(new RegExp(tool, 'gi'), '').trim(), actionMax);
-    title = `${tool}: ${action} | AI Tools for Solopreneurs${suffix}`;
+    const actionMax = mobileMax - `${tool}: `.length - suffix.length;
+    const cleanTopic = script.topic.replace(new RegExp(tool, 'gi'), '').replace(/—|-/g, '').trim();
+    const action = truncateAtWord(cleanTopic, actionMax);
+    title = `${tool}: ${action}${suffix}`;
   } else {
-    // Multiple tools: "Tool1 vs Tool2 — insight | AI Tools #Shorts"
+    // Multiple tools: "Perplexity vs Gemini — Which wins? #Shorts"
     const vsString = `${tools[0]} vs ${tools[1]}`;
-    const insightMax = maxTitleLength - vsString.length - ' — '.length - ' | AI Tools'.length - suffix.length;
-    // Extract a short insight from topic
-    const insight = truncateAtWord(script.hookHeadline || 'Which Is Worth It?', insightMax);
-    title = `${vsString} — ${insight} | AI Tools${suffix}`;
+    const insightMax = mobileMax - vsString.length - ' — '.length - suffix.length;
+    const insight = truncateAtWord(script.hookHeadline?.split('\n')[0] || 'Which is better?', insightMax);
+    title = `${vsString} — ${insight}${suffix}`;
   }
 
-  // Ensure title doesn't exceed 100 chars
+  // Hard cap at 100 chars (YouTube limit)
   if (title.length > maxTitleLength) {
     title = title.slice(0, maxTitleLength - 1) + '…';
   }
