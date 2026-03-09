@@ -263,18 +263,25 @@ const hardBlockChecks = [
     name: 'TTS length limit exceeded',
     check: (texts, script, kb) => {
       // Hard limits — enforced before any ElevenLabs API calls are made
-      const MAX_WORDS_PER_SEGMENT = 28;   // calibrated from Eric (ElevenLabs) voice: slowest segments at 2.08 w/s × 13.5s = 28 words
-      const MAX_TOTAL_WORDS = 125;        // calibrated from actual renders: 127 words = 47.5s; leaves headroom under 55s hard cap
+      // Per-segment limits calibrated to Eric (ElevenLabs) voice timing
+      const SEGMENT_LIMITS = {
+        hookTTS:    18,
+        agitateTTS: 18,
+        proofTTS:   20,
+        ctaTTS:     13,
+        pointTTS:   27, // each points[].tts
+      };
+      const MAX_TOTAL_WORDS = 125; // calibrated from actual renders: 127 words = 47.5s; leaves headroom under 55s hard cap
 
       const issues = [];
 
-      // Collect all TTS segments
+      // Collect all TTS segments with their per-segment limits
       const ttsSegments = [
-        { field: 'hookTTS', text: script.hookTTS || '' },
-        { field: 'agitateTTS', text: script.agitateTTS || '' },
-        ...(script.points || []).map((p, i) => ({ field: `points[${i}].tts`, text: p.tts || '' })),
-        { field: 'proofTTS', text: script.proofTTS || '' },
-        { field: 'ctaTTS', text: script.ctaTTS || '' },
+        { field: 'hookTTS',    text: script.hookTTS    || '', max: SEGMENT_LIMITS.hookTTS },
+        { field: 'agitateTTS', text: script.agitateTTS || '', max: SEGMENT_LIMITS.agitateTTS },
+        ...(script.points || []).map((p, i) => ({ field: `points[${i}].tts`, text: p.tts || '', max: SEGMENT_LIMITS.pointTTS })),
+        { field: 'proofTTS',   text: script.proofTTS   || '', max: SEGMENT_LIMITS.proofTTS },
+        { field: 'ctaTTS',     text: script.ctaTTS     || '', max: SEGMENT_LIMITS.ctaTTS },
       ];
 
       let totalWords = 0;
@@ -282,11 +289,11 @@ const hardBlockChecks = [
       for (const seg of ttsSegments) {
         const words = seg.text.trim().split(/\s+/).filter(Boolean).length;
         totalWords += words;
-        if (words > MAX_WORDS_PER_SEGMENT) {
+        if (words > seg.max) {
           issues.push({
             field: seg.field,
             text: seg.text.substring(0, 80),
-            match: `${words} words (max ${MAX_WORDS_PER_SEGMENT})`
+            match: `${words} words (max ${seg.max})`
           });
         }
       }

@@ -1,0 +1,492 @@
+#!/usr/bin/env node
+// generate-images.mjs - Generate carousel slide images for @toolsforbuilders
+// Professional agency-quality design - March 2026 redesign
+// Run: node generate-images.mjs [--test] [--post-id=xxx]
+
+import { createCanvas, registerFont } from 'canvas';
+import { writeFileSync, existsSync, mkdirSync, copyFileSync } from 'fs';
+import { readJSON, writeJSON, formatBangkokDate, BRAND, PATHS } from './utils.mjs';
+
+// Canvas dimensions
+const SIZE = 1080;
+const PADDING = 80; // edge padding
+const CONTENT_WIDTH = SIZE - PADDING * 2; // 920px
+const COUNTER_INSET = 40; // slide counter inset from edges
+
+// Brand colors from utils.mjs
+// Typography scale (px)
+const TYPOGRAPHY = {
+  HERO_HEADLINE: { size: 80, weight: 'bold', lineHeight: 90, color: BRAND.cream },
+  SECTION_HEADLINE: { size: 56, weight: 'bold', lineHeight: 64, color: BRAND.charcoal },
+  BODY_TEXT: { size: 40, weight: 'regular', lineHeight: 56, color: BRAND.charcoal },
+  CAPTION: { size: 36, weight: 'regular', lineHeight: 44, color: BRAND.cream, opacity: 0.85 },
+  WATERMARK: { size: 24, weight: 'regular', lineHeight: 28, color: BRAND.charcoal, opacity: 0.5 },
+  SLIDE_COUNTER: { size: 32, weight: 'bold', lineHeight: 32, color: BRAND.cream },
+  DATE_PILL: { size: 28, weight: 'regular', lineHeight: 32, color: BRAND.cream, opacity: 1 }
+};
+
+// Font loading
+function loadFonts() {
+  // Prioritize DejaVu, fallback to Liberation, then system sans
+  const fontPaths = [
+    { path: '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', family: 'Sans', weight: 'bold' },
+    { path: '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', family: 'Sans', weight: 'regular' },
+    { path: '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf', family: 'Sans', weight: 'bold' },
+    { path: '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf', family: 'Sans', weight: 'regular' }
+  ];
+
+  for (const font of fontPaths) {
+    if (existsSync(font.path)) {
+      try {
+        registerFont(font.path, { family: font.family, weight: font.weight });
+        console.log(`✓ Loaded font: ${font.path} (${font.weight})`);
+      } catch (e) {
+        console.log(`Note: Could not load ${font.path}`);
+      }
+    }
+  }
+}
+
+// Text wrapping helper
+function wrapText(ctx, text, maxWidth, fontSize, fontWeight = 'regular') {
+  const words = text.split(' ');
+  const lines = [];
+  let currentLine = '';
+
+  for (const word of words) {
+    const testLine = currentLine ? `${currentLine} ${word}` : word;
+    ctx.font = `${fontWeight} ${fontSize}px Sans`;
+    const metrics = ctx.measureText(testLine);
+
+    if (metrics.width > maxWidth && currentLine) {
+      lines.push(currentLine);
+      currentLine = word;
+    } else {
+      currentLine = testLine;
+    }
+  }
+  if (currentLine) lines.push(currentLine);
+  return lines;
+}
+
+// Measure text width
+function measureText(ctx, text, fontSize, fontWeight = 'regular') {
+  ctx.font = `${fontWeight} ${fontSize}px Sans`;
+  return ctx.measureText(text).width;
+}
+
+// Draw rounded rectangle (pill)
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  ctx.lineTo(x + width, y + height - radius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  ctx.lineTo(x + radius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+}
+
+// Draw cover slide (slide 1)
+function drawCoverSlide(ctx, slide, totalSlides) {
+  // Gradient background #0066FF → #0052CC top to bottom
+  const gradient = ctx.createLinearGradient(0, 0, 0, SIZE);
+  gradient.addColorStop(0, BRAND.blue);
+  gradient.addColorStop(1, BRAND.blueDark);
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // Headline (bold 80px, cream, centered)
+  const headlineLines = wrapText(ctx, slide.headline, CONTENT_WIDTH - 80, TYPOGRAPHY.HERO_HEADLINE.size, 'bold');
+  const lineHeight = TYPOGRAPHY.HERO_HEADLINE.lineHeight;
+  const totalHeadlineHeight = headlineLines.length * lineHeight;
+  const startY = (SIZE - totalHeadlineHeight) / 2 + 20; // +20 for baseline adjustment
+
+  ctx.fillStyle = BRAND.cream;
+  ctx.font = `bold ${TYPOGRAPHY.HERO_HEADLINE.size}px Sans`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+
+  headlineLines.forEach((line, i) => {
+    ctx.fillText(line, SIZE / 2, startY + i * lineHeight);
+  });
+
+  let currentY = startY + headlineLines.length * lineHeight + 40;
+
+  // Subheadline (optional, regular 36px, cream @ 85% opacity)
+  if (slide.subheadline) {
+    ctx.globalAlpha = 0.85;
+    ctx.fillStyle = BRAND.cream;
+    ctx.font = `regular ${TYPOGRAPHY.CAPTION.size}px Sans`;
+    const subLines = wrapText(ctx, slide.subheadline, CONTENT_WIDTH - 160, TYPOGRAPHY.CAPTION.size, 'regular');
+    const subLineHeight = TYPOGRAPHY.CAPTION.lineHeight;
+
+    subLines.forEach((line, i) => {
+      ctx.fillText(line, SIZE / 2, currentY + i * subLineHeight);
+    });
+    currentY += subLines.length * subLineHeight + 40;
+    ctx.globalAlpha = 1;
+  }
+
+  // Date pill (updated MM/YYYY) - cream bg @ 20% opacity, cream text
+  const now = new Date();
+  const month = now.toLocaleString('en-US', { month: 'long' });
+  const year = now.getFullYear();
+  const dateText = `Updated ${month} ${year}`;
+
+  ctx.font = `regular ${TYPOGRAPHY.DATE_PILL.size}px Sans`;
+  const dateWidth = measureText(ctx, dateText, TYPOGRAPHY.DATE_PILL.size, 'regular');
+  const datePadding = 20;
+  const dateHeight = TYPOGRAPHY.DATE_PILL.lineHeight + 12;
+  const dateRadius = dateHeight / 2;
+  const dateX = (SIZE - dateWidth - datePadding * 2) / 2;
+  const dateY = currentY;
+
+  // Pill background
+  ctx.fillStyle = BRAND.cream;
+  ctx.globalAlpha = 0.2;
+  drawRoundedRect(ctx, dateX, dateY, dateWidth + datePadding * 2, dateHeight, dateRadius);
+  ctx.fill();
+
+  // Pill text
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = BRAND.cream;
+  ctx.font = `regular ${TYPOGRAPHY.DATE_PILL.size}px Sans`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(dateText, dateX + (dateWidth + datePadding * 2) / 2, dateY + dateHeight / 2);
+  ctx.textBaseline = 'alphabetic';
+
+  // Account tag bottom-left
+  ctx.fillStyle = BRAND.cream;
+  ctx.globalAlpha = 1;
+  ctx.font = `regular ${TYPOGRAPHY.WATERMARK.size}px Sans`;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('@toolsforbuilders', PADDING, SIZE - PADDING);
+
+  // No slide counter on cover
+}
+
+// Draw content slide (slides 2 to N-1)
+function drawContentSlide(ctx, slide, totalSlides) {
+  // Cream background
+  ctx.fillStyle = BRAND.cream;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // Top accent bar (8px height, full width, blue)
+  ctx.fillStyle = BRAND.blue;
+  ctx.fillRect(0, 0, SIZE, 8);
+
+  // Slide counter pill (top-right inset 40px)
+  const pillText = `${slide.num}/${totalSlides}`;
+  ctx.font = `bold ${TYPOGRAPHY.SLIDE_COUNTER.size}px Sans`;
+  const textWidth = measureText(ctx, pillText, TYPOGRAPHY.SLIDE_COUNTER.size, 'bold');
+  const pillPaddingX = 20;
+  const pillPaddingY = 12;
+  const pillWidth = textWidth + pillPaddingX * 2;
+  const pillHeight = TYPOGRAPHY.SLIDE_COUNTER.lineHeight + pillPaddingY * 2;
+  const pillRadius = pillHeight / 2;
+
+  // Position: right edge at 1080 - 40, top edge at 40
+  const pillX = SIZE - COUNTER_INSET - pillWidth; // left edge
+  const pillY = COUNTER_INSET;
+
+  // Pill background
+  ctx.fillStyle = BRAND.blue;
+  drawRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, pillRadius);
+  ctx.fill();
+
+  // Pill text
+  ctx.fillStyle = BRAND.cream;
+  ctx.font = `bold ${TYPOGRAPHY.SLIDE_COUNTER.size}px Sans`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(pillText, pillX + pillWidth / 2, pillY + pillHeight / 2);
+  ctx.textBaseline = 'alphabetic';
+
+  // Section headline (bold 56px, charcoal, X:80, Y:160)
+  let y = 160;
+  ctx.fillStyle = BRAND.charcoal;
+  ctx.font = `bold ${TYPOGRAPHY.SECTION_HEADLINE.size}px Sans`;
+  ctx.textAlign = 'left';
+
+  const headlineLines = wrapText(ctx, slide.headline, CONTENT_WIDTH, TYPOGRAPHY.SECTION_HEADLINE.size, 'bold');
+  headlineLines.forEach((line, i) => {
+    ctx.fillText(line, PADDING, y + i * TYPOGRAPHY.SECTION_HEADLINE.lineHeight);
+  });
+
+  // Update Y position after headline
+  y += headlineLines.length * TYPOGRAPHY.SECTION_HEADLINE.lineHeight + 24;
+
+  // Blue accent line (100px × 5px, 24px below headline baseline)
+  ctx.fillStyle = BRAND.blue;
+  ctx.fillRect(PADDING, y, 100, 5);
+
+  y += 80; // 80px below accent line (start of bullets)
+
+  // Bullet points (max 3-4)
+  const bullets = slide.bullets || [];
+  const bulletGap = 100; // baseline-to-baseline gap
+  const bulletRadius = 7; // 14px diameter
+  const bulletCircleX = PADDING + 7; // center of 14px circle, flush with padding
+  const bulletTextX = PADDING + 40;  // text starts 40px after bullet left edge (80 + 40 = 120px)
+  const bulletMaxWidth = CONTENT_WIDTH - 40; // remaining width after bullet indent
+
+  for (let i = 0; i < bullets.length; i++) {
+    const lineY = y + TYPOGRAPHY.BODY_TEXT.size; // baseline for first text line
+
+    // Bullet circle — vertically centered on first text line
+    ctx.fillStyle = BRAND.blue;
+    ctx.beginPath();
+    ctx.arc(bulletCircleX, lineY - bulletRadius, bulletRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Bullet text — left-aligned, starts after bullet
+    ctx.fillStyle = BRAND.charcoal;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.font = `${TYPOGRAPHY.BODY_TEXT.size}px Sans`;
+    const bulletLines = wrapText(ctx, bullets[i], bulletMaxWidth, TYPOGRAPHY.BODY_TEXT.size, 'regular');
+    bulletLines.forEach((line, j) => {
+      ctx.fillText(line, bulletTextX, lineY + j * TYPOGRAPHY.BODY_TEXT.lineHeight);
+    });
+
+    // Move Y down: gap accounts for multi-line bullets
+    y += bulletGap + (bulletLines.length - 1) * TYPOGRAPHY.BODY_TEXT.lineHeight;
+  }
+
+  // Watermark bottom-right (50% opacity charcoal, 80px from edges)
+  ctx.fillStyle = BRAND.charcoal;
+  ctx.globalAlpha = 0.5;
+  ctx.font = `regular ${TYPOGRAPHY.WATERMARK.size}px Sans`;
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('@toolsforbuilders', SIZE - PADDING, SIZE - PADDING);
+  ctx.globalAlpha = 1;
+}
+
+// Draw CTA slide (last slide)
+function drawCtaSlide(ctx, slide, totalSlides) {
+  // Solid blue background
+  ctx.fillStyle = BRAND.blue;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // Small cream horizontal line 200×3px centered, 80px above main text
+  const lineWidth = 200;
+  const lineHeight = 3;
+  const lineY = (SIZE / 2) - 80 - lineHeight;
+
+  ctx.fillStyle = BRAND.cream;
+  ctx.fillRect((SIZE - lineWidth) / 2, lineY, lineWidth, lineHeight);
+
+  // Main text: "Follow @toolsforbuilders" bold 56px cream centered
+  const mainText = slide.headline || 'Follow @toolsforbuilders';
+  ctx.fillStyle = BRAND.cream;
+  ctx.font = `bold ${TYPOGRAPHY.SECTION_HEADLINE.size}px Sans`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const mainLines = wrapText(ctx, mainText, CONTENT_WIDTH, TYPOGRAPHY.SECTION_HEADLINE.size, 'bold');
+  const mainStartY = SIZE / 2;
+
+  mainLines.forEach((line, i) => {
+    ctx.fillText(line, SIZE / 2, mainStartY + i * TYPOGRAPHY.SECTION_HEADLINE.lineHeight);
+  });
+
+  // Sub text: "Daily AI tools & automation tips" regular 36px cream @ 80% opacity
+  const subText = slide.subheadline || 'Daily AI tools & automation tips';
+  ctx.globalAlpha = 0.8;
+  ctx.fillStyle = BRAND.cream;
+  ctx.font = `regular ${TYPOGRAPHY.CAPTION.size}px Sans`;
+  const subLines = wrapText(ctx, subText, CONTENT_WIDTH - 160, TYPOGRAPHY.CAPTION.size, 'regular');
+  const subStartY = mainStartY + mainLines.length * TYPOGRAPHY.SECTION_HEADLINE.lineHeight + 50;
+
+  subLines.forEach((line, i) => {
+    ctx.fillText(line, SIZE / 2, subStartY + i * TYPOGRAPHY.CAPTION.lineHeight);
+  });
+  ctx.globalAlpha = 1;
+
+  // No watermark, no slide counter on CTA
+}
+
+// Main draw slide function
+function drawSlide(slide, totalSlides) {
+  const canvas = createCanvas(SIZE, SIZE);
+  const ctx = canvas.getContext('2d');
+
+  // Enable anti-aliasing
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.textBaseline = 'alphabetic';
+
+  // Determine slide type
+  if (slide.num === 1) {
+    drawCoverSlide(ctx, slide, totalSlides);
+  } else if (slide.num === totalSlides) {
+    drawCtaSlide(ctx, slide, totalSlides);
+  } else {
+    drawContentSlide(ctx, slide, totalSlides);
+  }
+
+  return canvas;
+}
+
+// Generate images for a post
+async function generateImagesForPost(post, outputDir) {
+  const slides = post.slides || [];
+  const imagePaths = [];
+
+  for (const slide of slides) {
+    const canvas = drawSlide(slide, slides.length);
+    const filename = `slide-${slide.num}.png`;
+    const localPath = `${outputDir}/${filename}`;
+    const publicPath = `${PATHS.publicImages}/${post.id}-slide-${slide.num}.png`;
+
+    // Save locally
+    const buffer = canvas.toBuffer('image/png');
+    writeFileSync(localPath, buffer);
+
+    // Copy to public directory for web access
+    copyFileSync(localPath, publicPath);
+
+    const imageUrl = `${PATHS.imageBaseUrl}/${post.id}-slide-${slide.num}.png`;
+    imagePaths.push({
+      local: localPath,
+      public: publicPath,
+      url: imageUrl
+    });
+
+    console.log(`   ✓ Generated slide ${slide.num}/${slides.length}`);
+  }
+
+  return imagePaths;
+}
+
+// Generate test images
+async function generateTestImage() {
+  console.log('🧪 Generating test image...');
+
+  const testSlides = [
+    {
+      num: 1,
+      type: 'hook',
+      headline: 'Stop Using ChatGPT Wrong',
+      subheadline: 'Most people waste hours on bad outputs. Here is the fix.'
+    },
+    {
+      num: 2,
+      type: 'content',
+      headline: 'The Problem',
+      bullets: [
+        'Most people just type random questions',
+        'No structure, no system, no consistency',
+        'Wasting hours on rewrites and bad outputs'
+      ]
+    },
+    {
+      num: 3,
+      type: 'content',
+      headline: 'The Simple Fix',
+      bullets: [
+        'Use custom instructions tailored to your needs',
+        'Build prompt templates for repeatable tasks',
+        'Chain your prompts together for complex work'
+      ]
+    },
+    {
+      num: 4,
+      type: 'cta',
+      headline: 'Follow @toolsforbuilders',
+      subheadline: 'Daily AI tools & automation tips'
+    }
+  ];
+
+  const testDir = `${PATHS.data}/posts/test`;
+  if (!existsSync(testDir)) mkdirSync(testDir, { recursive: true });
+
+  for (const slide of testSlides) {
+    const canvas = drawSlide(slide, testSlides.length);
+    const filename = `test-slide-${slide.num}.png`;
+    const buffer = canvas.toBuffer('image/png');
+    writeFileSync(`${testDir}/${filename}`, buffer);
+    console.log(`✓ Created ${filename}`);
+  }
+
+  console.log(`\n✅ Test images saved to ${testDir}`);
+  console.log('   Check PNG files to verify brand styling.');
+}
+
+// Main function
+async function main() {
+  const args = process.argv.slice(2);
+
+  // Load fonts
+  loadFonts();
+
+  // Test mode
+  if (args.includes('--test')) {
+    await generateTestImage();
+    return;
+  }
+
+  console.log('='.repeat(50));
+  console.log('🎨 IMAGE GENERATION - @toolsforbuilders (V2 Redesign)');
+  console.log(`🕐 ${formatBangkokDate()}`);
+  console.log('='.repeat(50));
+
+  // Read queue
+  const queue = readJSON('content-queue.json');
+  if (!queue || !queue.posts) {
+    console.error('❌ No content queue found. Run generate-content.mjs first.');
+    process.exit(1);
+  }
+
+  // Filter posts that need images
+  const postsNeedingImages = queue.posts.filter(
+    p => p.status === 'pending' && !p.imagesGenerated
+  );
+
+  if (postsNeedingImages.length === 0) {
+    console.log('✓ All pending posts have images generated.');
+    return;
+  }
+
+  console.log(`\n🖼️ Generating images for ${postsNeedingImages.length} posts...`);
+
+  for (const post of postsNeedingImages) {
+    const dateDir = formatBangkokDate();
+    const outputDir = `${PATHS.posts}/${dateDir}`;
+
+    if (!existsSync(outputDir)) {
+      mkdirSync(outputDir, { recursive: true });
+    }
+
+    console.log(`\n📝 Post: ${post.hook?.substring(0, 40)}...`);
+
+    try {
+      const imagePaths = await generateImagesForPost(post, outputDir);
+
+      // Update post in queue
+      post.imagesGenerated = true;
+      post.imagePaths = imagePaths;
+      post.imageGeneratedAt = formatBangkokDate();
+
+    } catch (error) {
+      console.error(`   ❌ Error: ${error.message}`);
+    }
+  }
+
+  // Save updated queue
+  writeJSON('content-queue.json', queue);
+
+  console.log('\n✅ Image generation complete!');
+}
+
+main().catch(err => {
+  console.error('❌ Fatal error:', err);
+  process.exit(1);
+});

@@ -245,6 +245,83 @@ function getCoveredTopics() {
   return covered;
 }
 
+/**
+ * trimTTS — auto-trim TTS segments to meet quality-gate limits before queuing.
+ * Per-segment limits match quality-gate.mjs: hookTTS ≤ 18, agitateTTS ≤ 18,
+ * proofTTS ≤ 20, ctaTTS ≤ 13, points[].tts ≤ 27, total ≤ 125.
+ * Truncates at sentence boundary (last '.' before word limit) when possible.
+ */
+function trimTTS(script) {
+  const SEGMENT_LIMITS = {
+    hookTTS:    18,
+    agitateTTS: 18,
+    proofTTS:   20,
+    ctaTTS:     13,
+    pointTTS:   27,
+  };
+  const MAX_TOTAL = 125;
+  const wc = t => (t || '').trim().split(/\s+/).filter(Boolean).length;
+
+  // Gather all TTS segment refs (mutate in place via setters)
+  const getSegs = (s) => [
+    { field: 'hookTTS',    max: SEGMENT_LIMITS.hookTTS,    get: () => s.hookTTS || '',    set: v => { s.hookTTS = v; } },
+    { field: 'agitateTTS', max: SEGMENT_LIMITS.agitateTTS, get: () => s.agitateTTS || '', set: v => { s.agitateTTS = v; } },
+    ...((s.points || []).map((p, i) => ({
+      field: `points[${i}].tts`,
+      max:   SEGMENT_LIMITS.pointTTS,
+      get: () => p.tts || '',
+      set: v => { p.tts = v; },
+    }))),
+    { field: 'proofTTS',   max: SEGMENT_LIMITS.proofTTS,   get: () => s.proofTTS || '',   set: v => { s.proofTTS = v; } },
+    { field: 'ctaTTS',     max: SEGMENT_LIMITS.ctaTTS,     get: () => s.ctaTTS || '',     set: v => { s.ctaTTS = v; } },
+  ];
+
+  const trimSegment = (text, maxWords) => {
+    const words = text.trim().split(/\s+/).filter(Boolean);
+    if (words.length <= maxWords) return text;
+    // Find last sentence boundary (period) at or before maxWords
+    const slice = words.slice(0, maxWords);
+    const lastDot = slice.map((w, i) => ({ w, i })).filter(({ w }) => w.endsWith('.')).pop();
+    const cutAt = lastDot ? lastDot.i + 1 : maxWords;
+    return words.slice(0, cutAt).join(' ');
+  };
+
+  const id = script.id || '(unknown)';
+  const segs = getSegs(script);
+
+  // Pass 1: trim any segment exceeding its per-segment limit
+  for (const seg of segs) {
+    const before = seg.get();
+    const beforeWc = wc(before);
+    if (beforeWc > seg.max) {
+      const after = trimSegment(before, seg.max);
+      seg.set(after);
+      console.warn(`⚠️ TTS trimmed on ${id}: ${seg.field} ${beforeWc}→${wc(after)} words`);
+    }
+  }
+
+  // Pass 2: trim total > MAX_TOTAL, targeting longest segments first
+  let total = segs.reduce((sum, seg) => sum + wc(seg.get()), 0);
+  while (total > MAX_TOTAL) {
+    // Find longest segment (excluding already-minimal ones)
+    const longest = segs
+      .map(seg => ({ seg, w: wc(seg.get()) }))
+      .filter(({ w }) => w > 5)
+      .sort((a, b) => b.w - a.w)[0];
+    if (!longest) break;
+
+    const before = longest.seg.get();
+    const beforeWc = longest.w;
+    const targetWc = Math.max(5, beforeWc - (total - MAX_TOTAL));
+    const after = trimSegment(before, targetWc);
+    longest.seg.set(after);
+    console.warn(`⚠️ TTS trimmed on ${id}: ${longest.seg.field} ${beforeWc}→${wc(after)} words (total trim)`);
+    total = segs.reduce((sum, seg) => sum + wc(seg.get()), 0);
+  }
+
+  return script;
+}
+
 function appendToQueue(scripts) {
   const queue = existsSync(PATHS.queue)
     ? JSON.parse(readFileSync(PATHS.queue, 'utf8'))
@@ -253,6 +330,7 @@ function appendToQueue(scripts) {
   // Preserve existing status (e.g., 'needs-review'), default to 'needs-review' if not set
   scripts.forEach(s => { 
     if (!s.status) s.status = 'needs-review';
+    trimTTS(s);  // enforce TTS limits before queuing
     queue.posts.push(s); 
   });
   queue.updatedAt = new Date().toISOString();

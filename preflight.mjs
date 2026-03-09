@@ -57,7 +57,7 @@ function fail(check, detail = '') {
 // Checks
 // ─────────────────────────────────────────────────────────────────────────────
 
-function checkYouTubeToken() {
+async function checkYouTubeToken() {
   if (!existsSync(PATHS.ytToken)) {
     fail('YouTube token', 'youtube-token.json not found');
     return;
@@ -66,14 +66,26 @@ function checkYouTubeToken() {
     const token = JSON.parse(readFileSync(PATHS.ytToken, 'utf8'));
     const now = Date.now();
     const expiryMs = token.expiry_date || token.expires_at;
-    
+
     if (!expiryMs) {
       warn('YouTube token', 'No expiry_date field — cannot verify token validity');
       return;
     }
-    
+
     if (expiryMs < now) {
-      fail('YouTube token', `Expired ${Math.floor((now - expiryMs) / 1000 / 60)} minutes ago`);
+      // Access token expired — try auto-refresh using refresh_token
+      if (!token.refresh_token) {
+        fail('YouTube token', 'Expired and no refresh_token available');
+        return;
+      }
+      log('🔄 YouTube access token expired — auto-refreshing...');
+      try {
+        const { refreshToken } = await import('./youtube/refresh-token.mjs');
+        await refreshToken();
+        pass('YouTube token refreshed successfully');
+      } catch (refreshErr) {
+        fail('YouTube token', `Auto-refresh failed: ${refreshErr.message}`);
+      }
     } else if (expiryMs < now + 10 * 60 * 1000) {
       warn('YouTube token', 'Expires in less than 10 minutes — may refresh during upload');
     } else {
@@ -109,39 +121,38 @@ async function checkInstagramToken() {
       warn('Instagram token', 'IG_USER_ID not found — API calls may fail');
     }
     
-    // Ping IG API to verify token
-    const url = `https://graph.facebook.com/v22.0/me?access_token=${token}`;
+    // Ping IG API to verify token — use graph.instagram.com (correct endpoint for this token type)
+    const url = `https://graph.instagram.com/me?fields=id,username&access_token=${token}`;
     const res = await fetch(url);
     const data = await res.json();
-    
+
     if (data.error) {
       if (data.error.code === 190) {
-        fail('Instagram token', 'Token is invalid or expired');
+        fail('Instagram token', 'Token is invalid or expired — regenerate at Meta Developer Portal');
       } else {
         fail('Instagram token', data.error.message);
       }
       return;
     }
-    
-    // Check token expiry via debug_token endpoint
-    const debugUrl = `https://graph.facebook.com/debug_token?input_token=${token}&access_token=${token}`;
-    const debugRes = await fetch(debugUrl);
-    const debugData = await debugRes.json();
-    
-    if (debugData.data?.expires_at) {
-      const expiryMs = debugData.data.expires_at * 1000;
-      const now = Date.now();
-      const daysLeft = Math.floor((expiryMs - now) / 1000 / 60 / 60 / 24);
-      
-      if (daysLeft < 0) {
-        fail('Instagram token', 'Token is expired');
-      } else if (daysLeft < 7) {
-        warn('Instagram token', `Expires in ${daysLeft} days — refresh soon`);
+
+    // Token is valid — check expiry via token refresh endpoint
+    try {
+      const refreshUrl = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${token}`;
+      const refreshRes = await fetch(refreshUrl);
+      const refreshData = await refreshRes.json();
+
+      if (refreshData.expires_in) {
+        const daysLeft = Math.floor(refreshData.expires_in / 86400);
+        if (daysLeft < 7) {
+          warn('Instagram token', `Expires in ${daysLeft} days — refresh soon`);
+        } else {
+          pass(`Instagram token valid (@${data.username}, ${daysLeft} days remaining)`);
+        }
       } else {
-        pass(`Instagram token valid (${daysLeft} days remaining)`);
+        pass(`Instagram token valid (@${data.username})`);
       }
-    } else {
-      pass('Instagram token valid (expiry unknown — likely long-lived)');
+    } catch (_) {
+      pass(`Instagram token valid (@${data.username})`);
     }
   } catch (e) {
     fail('Instagram token', `Validation error: ${e.message}`);
@@ -252,7 +263,7 @@ async function main() {
   console.log('');
   
   // Run all checks
-  checkYouTubeToken();
+  await checkYouTubeToken();
   await checkInstagramToken();
   checkContentQueue();
   checkRequiredFiles();

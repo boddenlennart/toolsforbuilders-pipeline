@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-09T01:51:24.840Z",
+  "updatedAt": "2026-03-09T04:19:29.319Z",
   "note": "Rebuilt after Opus web research. Topics sourced from content-research.md. Every script passes the 6-month test.",
   "posts": [
     {
@@ -157,14 +157,14 @@
     {
       "id": "reel-descript-overdub-fix",
       "pillar": "Hidden Feature",
-      "status": "blocked",
+      "status": "needs-review",
       "topic": "Descript Overdub — fix mispronounced words by typing, not re-recording",
       "hookHeadline": "Stop re-recording\nwhole sections.\nType the fix instead.",
       "hookSub": "Descript fixes your voice by typing.",
-      "hookTTS": "You re-record an entire section because you mispronounced one word. I fix it by typing the correction. That's not a metaphor — that's literally what Descript Overdub does.",
+      "hookTTS": "You re-record an entire section because you mispronounced one word. I fix it by typing the correction.",
       "agitateMain": "One mispronounced word = full re-record",
       "agitateBridge": "Overdub re-renders your voice from text",
-      "agitateTTS": "Re-recording breaks your flow, ruins your audio environment match, and costs twenty minutes. There's a better way that almost nobody uses.",
+      "agitateTTS": "Re-recording breaks your flow, ruins your audio environment match, and costs twenty minutes.",
       "points": [
         {
           "label": "STEP 01",
@@ -190,32 +190,30 @@
             "Matches surrounding audio automatically"
           ],
           "quickWin": "→ Works on any existing recording",
-          "tts": "Last step — and this is the part that sounds impossible. Find the mistake in the transcript, type the correct word, and Descript re-renders that exact segment in your cloned voice. Matches surrounding audio. Undetectable."
+          "tts": "Find the mistake in the transcript, type the correct word, and Descript re-renders that segment in your cloned voice. Matches surrounding audio. Undetectable."
         }
       ],
       "proofStat": "20-minute re-record → 30-second fix",
       "proofContext": "Ten minutes of training audio.\nEvery future mistake fixed by typing.\nNot re-recording.",
-      "proofTTS": "I fix mispronunciations in under a minute now. The audio is indistinguishable from a live recording. Twenty minutes of re-recording — gone permanently.",
+      "proofTTS": "I fix mispronunciations in under a minute now. The audio is indistinguishable from a live recording.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow.",
-      "blockedAt": "2026-03-09T03:46:15.603Z",
-      "blockReason": "HB-6: TTS length limit exceeded"
+      "ctaSecondary": "New post dropping tomorrow."
     },
     {
       "id": "reel-ai-productivity-myth",
       "pillar": "Myth Bust",
-      "status": "blocked",
+      "status": "needs-review",
       "topic": "More AI use doesn't automatically mean more productivity",
       "hookHeadline": "More AI tools\ndoesn't mean\nyou're more productive",
       "hookSub": "HBR published the research. It's uncomfortable.",
-      "hookTTS": "You're adding more AI tools and expecting more output. Harvard Business Review published research on exactly why that's not working. Here's what it actually says.",
+      "hookTTS": "You're adding more AI tools and expecting more output.",
       "agitateMain": "AI generates volume. Not always value.",
       "agitateBridge": "Polished output isn't the same as good output",
-      "agitateTTS": "HBR researchers named it workslop — AI-polished content that looks professional but offloads the thinking onto your reader or your client. More tools, more workslop.",
+      "agitateTTS": "HBR named it workslop — AI-polished content that looks professional but offloads thinking onto your reader.",
       "points": [
         {
           "label": "THE FINDING",
@@ -241,32 +239,30 @@
             "Automate repetition. Not thinking."
           ],
           "quickWin": "→ Rule: automate repetition, not judgment",
-          "tts": "Last step — and this is the uncomfortable rule. Use AI to generate, never to decide. Automate repetition. Keep the judgment calls. That's what separates productivity from workslop."
+          "tts": "Last step — and this is the uncomfortable rule. Use AI to generate, never to decide. Automate repetition. Keep the judgment calls."
         }
       ],
       "proofStat": "More AI ≠ more output. Deployment is the variable.",
       "proofContext": "HBR researchers named it workslop.\nAI-polished output that offloads thinking onto your reader.\nMore tools, more workslop — unless you keep judgment in-house.",
-      "proofTTS": "HBR researchers named the failure mode: workslop. AI-polished content that looks professional but offloads the thinking. The fix is keeping judgment calls human. Generation is AI's job. Decisions are yours.",
+      "proofTTS": "HBR named the failure mode: workslop. AI-polished content that offloads the thinking. Keep judgment calls human. Generation is AI's job.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow.",
-      "blockedAt": "2026-03-09T03:46:27.556Z",
-      "blockReason": "HB-2: Tool name/feature not in knowledge base; HB-6: TTS length limit exceeded"
+      "ctaSecondary": "New post dropping tomorrow."
     },
     {
       "id": "reel-claude-extended-thinking",
       "pillar": "Workflow",
-      "status": "blocked",
+      "status": "needs-review",
       "topic": "Claude Extended Thinking — when to use it and when it wastes your time",
       "hookHeadline": "Claude's Extended\nThinking is costing\nyou time",
       "hookSub": "Most people use it wrong.",
-      "hookTTS": "Claude's Extended Thinking mode either saves you an hour or wastes twenty minutes. It depends entirely on when you activate it. Most people leave it on for everything — and that's the mistake.",
+      "hookTTS": "Claude's Extended Thinking saves you an hour or wastes twenty minutes. Depends entirely on when you activate it.",
       "agitateMain": "Extended Thinking on drafts = slow for no reason",
       "agitateBridge": "It only pays off on multi-step reasoning",
-      "agitateTTS": "Extended Thinking adds depth on complex problems. On a simple caption or email draft — it just makes Claude slow. You're waiting for nothing.",
+      "agitateTTS": "Extended Thinking adds depth on complex problems.",
       "points": [
         {
           "label": "TURN IT OFF",
@@ -279,7 +275,7 @@
             "Anything under 2 steps: off"
           ],
           "quickWin": "→ Model selector (top of chat) → Extended thinking toggle",
-          "tts": "Turn it off for writing tasks, summaries, captions, rewrites. Anything one or two steps. Click the model selector at the top of chat — toggle off. Same output, thirty seconds instead of three minutes."
+          "tts": "Turn it off for writing tasks, summaries, captions, rewrites — anything one or two steps. Toggle off in the model selector. Same output, thirty seconds."
         },
         {
           "label": "TURN IT ON",
@@ -292,32 +288,30 @@
             "Anything requiring reasoning chains: on"
           ],
           "quickWin": "→ Pays off on problems with >3 steps",
-          "tts": "Last step — this is where Extended Thinking earns it. Strategy decisions, debugging, multi-step planning. Problems with more than three steps see real quality gains. Two rules. That's the whole system."
+          "tts": "Strategy decisions, debugging, multi-step planning — turn it on. Problems with more than three steps see real quality gains. Two rules."
         }
       ],
       "proofStat": "Extended thinking on for strategy. Off for everything else.",
       "proofContext": "Extended Thinking: on for strategy.\nOff for everything else.\nSame quality on simple tasks — no waiting.",
-      "proofTTS": "Complex strategy prompt with Extended Thinking on: deeper reasoning, worth the wait. Simple caption with it on: identical output, three minutes wasted. One toggle, two rules. That's the whole system.",
+      "proofTTS": "Complex strategy with Extended Thinking on: deeper reasoning, worth the wait. Simple caption: same output, minutes wasted.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow.",
-      "blockedAt": "2026-03-09T03:46:38.235Z",
-      "blockReason": "HB-1: Unverifiable superlative; HB-6: TTS length limit exceeded"
+      "ctaSecondary": "New post dropping tomorrow."
     },
     {
       "id": "reel-beehiiv-delete-subscribers",
       "pillar": "Comparison",
-      "status": "blocked",
+      "status": "needs-review",
       "topic": "Beehiiv: deleting inactive subscribers improves your newsletter metrics",
       "hookHeadline": "Deleting subscribers\ngrows your newsletter.",
       "hookSub": "Counterintuitive. Completely true.",
-      "hookTTS": "The counterintuitive newsletter move: delete your inactive subscribers. Open rate goes up. Deliverability improves. Ad revenue follows. Here's exactly how to do it in Beehiiv.",
+      "hookTTS": "The counterintuitive newsletter move: delete your inactive subscribers. Open rate goes up. Deliverability improves. Ad revenue follows.",
       "agitateMain": "Inactive subscribers tank your deliverability",
       "agitateBridge": "Low open rates = spam folder = real readers miss you",
-      "agitateTTS": "Every inactive subscriber drags your open rate down. Low open rates signal spam to email providers. Your real readers stop seeing your emails. It compounds.",
+      "agitateTTS": "Every inactive subscriber drags your open rate down. Low open rates signal spam to providers.",
       "points": [
         {
           "label": "STEP 01",
@@ -343,20 +337,18 @@
             "Open rate climbs as inactive weight lifts"
           ],
           "quickWin": "→ Deliverability improves as inactive weight clears",
-          "tts": "Last step — and it feels wrong every time. Filter by inactive tag, select all, delete. Not unsubscribe. Delete. Open rate climbs as the dead weight clears. Smaller list, better numbers across the board."
+          "tts": "Filter by inactive tag, select all, delete. Not unsubscribe — delete. Open rate climbs as dead weight clears. Smaller list, better numbers."
         }
       ],
       "proofStat": "Fewer subscribers. Better deliverability. Higher open rate.",
       "proofContext": "Inactive subscribers drag open rate down.\nLow open rates signal spam to email providers.\nDelete the dead weight — your real readers start seeing you again.",
-      "proofTTS": "List hygiene is the most underrated deliverability lever in newsletters. Inactive subscribers aren't neutral — they actively hurt you. Delete them. Open rate goes up. You move out of the promotions tab. Smaller list, better reach.",
+      "proofTTS": "List hygiene is the most underrated deliverability lever. Inactive subscribers hurt you. Delete them.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "proofSource": "toolsforbuilders.com",
       "ctaSaveText": "Save this before you forget it.",
       "ctaHandle": "@toolsforbuilders",
       "ctaValueProp": "One AI workflow tip every day.\nFree tools, real results.",
-      "ctaSecondary": "New post dropping tomorrow.",
-      "blockedAt": "2026-03-09T03:46:47.754Z",
-      "blockReason": "HB-6: TTS length limit exceeded; HB-7: Comparison hook missing both tool names"
+      "ctaSecondary": "New post dropping tomorrow."
     },
     {
       "id": "reel-gemini-imagen-500-free-daily",
@@ -365,10 +357,10 @@
       "topic": "Gemini AI Studio gives 500-1000 free images/day vs 100 in Gemini App",
       "hookHeadline": "Gemini App: 100/day — AI Studio: 500-1,000/day",
       "hookSub": "Same tool, different limits",
-      "hookTTS": "Gemini App gives you one hundred images per day. AI Studio gives you five hundred to one thousand — same account, different interface.",
+      "hookTTS": "Gemini App gives one hundred images per day.",
       "agitateMain": "You hit the App limit by noon",
       "agitateBridge": "Then you wait until tomorrow",
-      "agitateTTS": "You burn through one hundred images testing variations. Gemini blocks you. You wait twenty-four hours or pay twenty dollars.",
+      "agitateTTS": "You burn through one hundred images testing variations. Gemini blocks you. Wait twenty-four hours or pay.",
       "points": [
         {
           "label": "STEP 01",
@@ -404,12 +396,12 @@
             "Add text overlays in Canva if needed"
           ],
           "quickWin": "→ Zero stock photo cost",
-          "tts": "Last step — download the best one. Add text in Canva if you need it. Five hundred images daily at zero cost."
+          "tts": "Last step — download the best one. Add text in Canva if needed. Five hundred images daily, zero cost."
         }
       ],
       "proofStat": "AI Studio: 500-1,000 free images/day",
       "proofContext": "Gemini App caps you at 100 images per day. AI Studio gives 5-10x that limit on the same free account. Most creators don't know AI Studio exists — they hit the App limit and assume that's all Gemini offers.",
-      "proofTTS": "AI Studio gives five hundred to one thousand free images daily. Gemini App gives one hundred. Same account, ten times the limit.",
+      "proofTTS": "AI Studio: five hundred to one thousand free images daily. Same account as Gemini App — ten times the limit.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
         {
@@ -436,10 +428,10 @@
       "topic": "NotebookLM Audio Overview turns research into passive listening",
       "hookHeadline": "Research while you drive — NotebookLM",
       "hookSub": "Turn reading into listening",
-      "hookTTS": "You spend two hours reading research articles. I upload them to NotebookLM and listen during my commute — same information, zero desk time.",
+      "hookTTS": "You spend two hours reading research articles.",
       "agitateMain": "Research only happens at your desk",
       "agitateBridge": "You need focused reading time",
-      "agitateTTS": "You block two hours for deep research. Someone interrupts. Your morning is gone. Research gets pushed to tomorrow again.",
+      "agitateTTS": "You block two hours for deep research. Someone interrupts. Morning gone. Research pushed to tomorrow.",
       "points": [
         {
           "label": "STEP 01",
@@ -510,7 +502,7 @@
       "hookTTS": "You paste your brand guidelines into ChatGPT every single time. Custom GPTs remember them forever — zero re-explaining.",
       "agitateMain": "You repeat the same instructions",
       "agitateBridge": "Every conversation starts blank",
-      "agitateTTS": "You write caption in my brand voice, avoid corporate speak, use short sentences. Next chat, you paste it all again.",
+      "agitateTTS": "Write caption in my brand voice, avoid corporate speak. Next chat, paste it all again.",
       "points": [
         {
           "label": "STEP 01",
@@ -546,12 +538,12 @@
             "Consistent output, no re-explaining"
           ],
           "quickWin": "→ 5-min captions",
-          "tts": "Last step — open that Custom GPT every time. Describe the topic. It handles your style automatically — consistent captions in five minutes."
+          "tts": "Open that Custom GPT every time. Describe the topic. It handles your style automatically — consistent captions in five minutes."
         }
       ],
       "proofStat": "Custom GPTs: free on all tiers",
       "proofContext": "Custom GPTs are free on ChatGPT Free, Plus, and Pro. Most people paste their brand doc into every new chat instead. A Custom GPT eliminates that step forever — your instructions persist across all conversations. One-time setup, permanent memory.",
-      "proofTTS": "Custom GPTs are free on all ChatGPT tiers. Most people repaste their brand doc every single chat. This remembers it forever.",
+      "proofTTS": "Custom GPTs free on all tiers. Most people repaste brand docs every chat. This remembers forever.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
         {
@@ -573,10 +565,10 @@
       "topic": "Perplexity 5 Pro Searches daily — how to maximize free tier",
       "hookHeadline": "5 Pro Searches daily — use them right",
       "hookSub": "Most waste them on basic stuff",
-      "hookTTS": "Perplexity gives you five Pro Searches daily for free. Most people waste them on questions basic search handles fine.",
+      "hookTTS": "Perplexity gives you five Pro Searches daily for free.",
       "agitateMain": "You burn Pro Searches on easy stuff",
       "agitateBridge": "Then you need deep research",
-      "agitateTTS": "You use Pro Search for what is the capital of France. Then you need cited research for a client proposal — Pro Searches gone.",
+      "agitateTTS": "You burn Pro Searches on basic questions. Need cited research for a proposal — searches gone.",
       "points": [
         {
           "label": "STEP 01",
@@ -617,7 +609,7 @@
       ],
       "proofStat": "5 Pro Searches daily on free tier",
       "proofContext": "Perplexity free tier gives 5 Pro Searches per day — these use GPT-4/Claude and include citations. Basic search is unlimited but doesn't use advanced models. Most users waste Pro Searches on simple questions that basic search handles fine. Strategic use means sourced research for proposals, competitive intel, and complex questions only.",
-      "proofTTS": "Five Pro Searches daily on free tier. Most people burn them on basic questions. Save them for cited research and complex analysis.",
+      "proofTTS": "Five Pro Searches daily, free tier. Most burn them on basic questions. Save for cited research.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
         {
@@ -644,10 +636,10 @@
       "topic": "ElevenLabs voice cloning at $5/mo vs hiring voice talent",
       "hookHeadline": "Voice talent: $100/video — ElevenLabs: $5/mo",
       "hookSub": "Same voice, yours forever",
-      "hookTTS": "Hiring voice talent costs one hundred dollars per video. ElevenLabs clones your voice for five dollars monthly — unlimited voiceovers after that.",
+      "hookTTS": "Voice talent costs one hundred per video. ElevenLabs clones your voice for five dollars monthly — unlimited.",
       "agitateMain": "You pay per video, every time",
       "agitateBridge": "Revisions cost you again",
-      "agitateTTS": "You hire a voice actor for one hundred dollars. Client wants a revision. You pay another fifty. Your voice clone does revisions free.",
+      "agitateTTS": "You pay a voice actor one hundred. Client wants revisions — another fifty.",
       "points": [
         {
           "label": "STEP 01",
@@ -688,7 +680,7 @@
       ],
       "proofStat": "Voice talent: $100/video vs $5/mo all-in",
       "proofContext": "Professional voice talent on Fiverr costs $100-300 per video, with revision fees. ElevenLabs Starter at $5/mo includes voice cloning and generates unlimited audio once your voice is cloned. Break-even after your first video — every video after that is effectively free. Most solopreneurs creating 2-4 videos/month save $400-1,200 monthly.",
-      "proofTTS": "Voice talent costs one hundred dollars per video. ElevenLabs Starter is five dollars monthly for unlimited generations. First video breaks even, rest is free.",
+      "proofTTS": "Voice talent costs one hundred per video. ElevenLabs Starter: five monthly, unlimited generations. First video breaks even.",
       "ctaTTS": "Save this before you forget it. I drop one of these every day.",
       "claims": [
         {

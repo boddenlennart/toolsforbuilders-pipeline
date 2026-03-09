@@ -1,0 +1,449 @@
+{
+  "version": "5.0",
+  "last_full_verification": "2026-03-05",
+  "last_kb_expansion": "2026-03-05",
+  "tools": [
+    "claude",
+    "gemini",
+    "notebooklm",
+    "chatgpt",
+    "perplexity",
+    "capcut",
+    "n8n",
+    "make",
+    "notion-ai",
+    "grammarly",
+    "otter-ai",
+    "descript",
+    "gamma",
+    "tome",
+    "copy-ai",
+    "jasper",
+    "elicit",
+    "consensus",
+    "scite",
+    "semantic-scholar",
+    "runway",
+    "pika",
+    "heygen",
+    "canva",
+    "adobe-firefly",
+    "zapier",
+    "bardeen",
+    "relevance-ai",
+    "elevenlabs",
+    "murf-ai",
+    "suno",
+    "beehiiv",
+    "buffer",
+    {
+      "slug": "claude",
+      "name": "claude",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.666Z"
+    },
+    {
+      "slug": "gemini",
+      "name": "gemini",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.667Z"
+    },
+    {
+      "slug": "chatgpt",
+      "name": "chatgpt",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.667Z"
+    },
+    {
+      "slug": "perplexity",
+      "name": "perplexity",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.667Z"
+    },
+    {
+      "slug": "notebooklm",
+      "name": "notebooklm",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.667Z"
+    },
+    {
+      "slug": "n8n",
+      "name": "n8n",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.667Z"
+    },
+    {
+      "slug": "descript",
+      "name": "descript",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.667Z"
+    },
+    {
+      "slug": "beehiiv",
+      "name": "beehiiv",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.668Z"
+    },
+    {
+      "slug": "notion-ai",
+      "name": "notion-ai",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.668Z"
+    },
+    {
+      "slug": "zapier",
+      "name": "zapier",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.668Z"
+    },
+    {
+      "slug": "buffer",
+      "name": "buffer",
+      "lastVerified": "2026-03-05",
+      "lastCheckedInWeeklyRun": "2026-03-05T08:45:16.668Z"
+    },
+    {
+      "slug": "make",
+      "name": "make",
+      "lastVerified": "2026-03-08",
+      "lastCheckedInWeeklyRun": "2026-03-08T09:01:13.350Z"
+    },
+    {
+      "slug": "grammarly",
+      "name": "grammarly",
+      "lastVerified": "2026-03-08",
+      "lastCheckedInWeeklyRun": "2026-03-08T20:00:00.257Z"
+    },
+    {
+      "slug": "elevenlabs",
+      "name": "elevenlabs",
+      "lastVerified": "2026-03-08",
+      "lastCheckedInWeeklyRun": "2026-03-08T20:00:00.258Z"
+    }
+  ],
+  "tool_categories": {
+    "ai_chat": [
+      "claude",
+      "gemini",
+      "chatgpt",
+      "perplexity"
+    ],
+    "writing": [
+      "notion-ai",
+      "grammarly",
+      "copy-ai",
+      "jasper"
+    ],
+    "research": [
+      "notebooklm",
+      "elicit",
+      "consensus",
+      "scite",
+      "semantic-scholar"
+    ],
+    "video": [
+      "capcut",
+      "descript",
+      "runway",
+      "pika",
+      "heygen"
+    ],
+    "design": [
+      "canva",
+      "gamma",
+      "tome",
+      "adobe-firefly"
+    ],
+    "automation": [
+      "n8n",
+      "make",
+      "zapier",
+      "bardeen",
+      "relevance-ai"
+    ],
+    "voice_audio": [
+      "elevenlabs",
+      "murf-ai",
+      "suno",
+      "otter-ai"
+    ],
+    "marketing": [
+      "beehiiv",
+      "buffer"
+    ]
+  },
+  "curated_stacks": [
+    {
+      "name": "The $0 Stack",
+      "tools": [
+        "claude",
+        "gemini",
+        "notebooklm",
+        "capcut",
+        "semantic-scholar"
+      ],
+      "monthly_cost": 0,
+      "replaces": [
+        "ChatGPT Plus $20/mo",
+        "Google AI Pro $19.99/mo",
+        "CapCut Pro ~$19.99/mo",
+        "Research subscriptions"
+      ],
+      "total_savings": "~$60-80/mo",
+      "verified": "2026-03-05",
+      "notes": "Claude free gives Sonnet 4.6. Gemini free gives 100 images/day. NotebookLM fully free. Semantic Scholar 100% free."
+    },
+    {
+      "name": "The $20 Creator Stack",
+      "tools": [
+        "claude-pro",
+        "canva-free",
+        "gamma-free",
+        "beehiiv-free"
+      ],
+      "monthly_cost": 20,
+      "replaces": [
+        "ChatGPT Plus $20/mo",
+        "Canva Pro $15/mo",
+        "Jasper $39+/mo"
+      ],
+      "total_savings": "~$55/mo vs all paid",
+      "verified": "2026-03-05",
+      "notes": "Best single $20 spend is Claude Pro. Use Canva/Gamma free tiers for design. Beehiiv free for newsletter."
+    },
+    {
+      "name": "The Research Stack",
+      "tools": [
+        "perplexity",
+        "notebooklm",
+        "consensus",
+        "semantic-scholar",
+        "claude"
+      ],
+      "monthly_cost": 0,
+      "focus": "Content research and fact-checking",
+      "verified": "2026-03-05",
+      "notes": "Perplexity (5 Pro/day) + NotebookLM (50 sources) + Consensus (25 Pro/mo) + Semantic Scholar (unlimited) = complete research at $0."
+    },
+    {
+      "name": "The Video Content Stack",
+      "tools": [
+        "capcut",
+        "descript-free",
+        "runway-free",
+        "elevenlabs-starter"
+      ],
+      "monthly_cost": 5,
+      "replaces": [
+        "Adobe Premiere $23/mo",
+        "Stock voiceovers $50+/project"
+      ],
+      "total_savings": "~$70/mo vs professional tools",
+      "verified": "2026-03-05",
+      "notes": "CapCut free for editing. Descript free tier for transcription. Runway 125 free credits. ElevenLabs $5/mo for voice."
+    },
+    {
+      "name": "The Automation Stack (Budget)",
+      "tools": [
+        "zapier-free",
+        "bardeen-free",
+        "beehiiv-free"
+      ],
+      "monthly_cost": 0,
+      "focus": "Basic automation for beginners",
+      "verified": "2026-03-05",
+      "notes": "Zapier 100 tasks/mo + Bardeen browser automation + Beehiiv email = automation foundation at $0."
+    },
+    {
+      "name": "The Automation Stack (Power)",
+      "tools": [
+        "n8n-selfhosted",
+        "claude-api",
+        "make-core"
+      ],
+      "monthly_cost": 15,
+      "replaces": [
+        "Zapier Pro $30+/mo",
+        "Multiple point solutions $50+/mo"
+      ],
+      "total_savings": "~$65/mo vs Zapier + extras",
+      "verified": "2026-03-05",
+      "notes": "n8n on $5 VPS + Make $10.59 backup + Claude API pay-as-you-go. Unlimited workflows."
+    },
+    {
+      "name": "The Presentation Stack",
+      "tools": [
+        "gamma",
+        "canva",
+        "notebooklm"
+      ],
+      "monthly_cost": 0,
+      "focus": "AI-powered presentations and pitches",
+      "verified": "2026-03-05",
+      "notes": "Gamma free (400 AI credits) for decks. Canva free for graphics. NotebookLM for research backing."
+    },
+    {
+      "name": "The Solopreneur Essential Stack",
+      "tools": [
+        "claude-pro",
+        "canva-pro",
+        "beehiiv-free",
+        "buffer-free"
+      ],
+      "monthly_cost": 35,
+      "replaces": [
+        "ChatGPT Plus $20",
+        "Canva Pro $15",
+        "Mailchimp $20+",
+        "Hootsuite $99+"
+      ],
+      "total_savings": "~$120/mo vs enterprise tools",
+      "verified": "2026-03-05",
+      "notes": "Claude $20 + Canva $15 = core creation. Beehiiv + Buffer free tiers for distribution."
+    }
+  ],
+  "content_angles": [
+    {
+      "hook": "The $0 Stack that replaced $80/mo in AI subscriptions",
+      "formula": "number_hook",
+      "tools_featured": [
+        "claude",
+        "gemini",
+        "notebooklm",
+        "capcut",
+        "semantic-scholar"
+      ],
+      "why_works": "Specific savings, contrarian to 'pay for everything' mindset",
+      "format": "carousel",
+      "verified": "2026-03-05"
+    },
+    {
+      "hook": "33 AI tools, reviewed — here's what's actually worth your money",
+      "formula": "authority",
+      "tools_featured": "all",
+      "why_works": "Comprehensive authority, decision helper",
+      "format": "carousel_series",
+      "verified": "2026-03-05"
+    },
+    {
+      "hook": "5 completely free research AI tools most people don't know",
+      "formula": "hidden_knowledge",
+      "tools_featured": [
+        "semantic-scholar",
+        "consensus",
+        "elicit",
+        "notebooklm",
+        "perplexity"
+      ],
+      "why_works": "Free value, hidden gems positioning",
+      "format": "carousel",
+      "verified": "2026-03-05"
+    },
+    {
+      "hook": "AI video tools compared: Runway vs Pika vs HeyGen",
+      "formula": "comparison",
+      "tools_featured": [
+        "runway",
+        "pika",
+        "heygen"
+      ],
+      "why_works": "Direct comparison people search for",
+      "format": "carousel",
+      "verified": "2026-03-05"
+    },
+    {
+      "hook": "ElevenLabs vs Murf: Which voice AI for $20/mo?",
+      "formula": "comparison",
+      "tools_featured": [
+        "elevenlabs",
+        "murf-ai"
+      ],
+      "why_works": "Budget-conscious comparison",
+      "format": "carousel",
+      "verified": "2026-03-05"
+    },
+    {
+      "hook": "I automate my entire content pipeline with 3 free tools",
+      "formula": "time_compression",
+      "tools_featured": [
+        "zapier",
+        "bardeen",
+        "buffer"
+      ],
+      "why_works": "Automation dream, free tier focus",
+      "format": "reel",
+      "verified": "2026-03-05"
+    },
+    {
+      "hook": "Gamma vs Canva for presentations: One is $0, both are great",
+      "formula": "comparison",
+      "tools_featured": [
+        "gamma",
+        "canva"
+      ],
+      "why_works": "Specific comparison, budget angle",
+      "format": "carousel",
+      "verified": "2026-03-05"
+    },
+    {
+      "hook": "Create AI music for $0/mo — but there's a catch (Suno review)",
+      "formula": "contrarian",
+      "tools_featured": [
+        "suno"
+      ],
+      "why_works": "Honest about download limits",
+      "format": "reel",
+      "verified": "2026-03-05"
+    }
+  ],
+  "model_landscape": {
+    "as_of": "2026-03-05",
+    "leaders": {
+      "writing": "claude",
+      "research": "perplexity|notebooklm|consensus",
+      "image_gen": "gemini|midjourney|adobe-firefly",
+      "video_gen": "runway|pika|heygen",
+      "voice": "elevenlabs|murf-ai",
+      "music": "suno",
+      "coding": "claude|cursor",
+      "presentations": "gamma|canva|tome",
+      "automation": "n8n|make|zapier|bardeen",
+      "newsletter": "beehiiv",
+      "versatility": "chatgpt|gemini|claude"
+    }
+  },
+  "pricing_snapshot": {
+    "as_of": "2026-03-05",
+    "claude_pro": 20,
+    "chatgpt_plus": 20,
+    "google_ai_pro": 19.99,
+    "perplexity_pro": 20,
+    "notion_ai_addon": 8,
+    "grammarly_premium": 12,
+    "descript_hobbyist": 16,
+    "gamma_plus": 8,
+    "canva_pro": 12.99,
+    "runway_standard": 12,
+    "pika_standard": 8,
+    "heygen_creator": 24,
+    "zapier_pro": 29.99,
+    "elevenlabs_starter": 5,
+    "murf_creator": 19,
+    "suno_pro": 10,
+    "beehiiv_scale": 43,
+    "elicit_plus": 12,
+    "jasper_creator": 39
+  },
+  "weekly_refresh_schedule": {
+    "next_refresh": "2026-03-12",
+    "cron": "0 2 * * 1",
+    "priority_tools": [
+      "claude",
+      "gemini",
+      "chatgpt",
+      "perplexity"
+    ],
+    "notes": "Priority tools checked weekly, others monthly rotation",
+    "last_run": "2026-03-05T05:48:53.214Z"
+  }
+}

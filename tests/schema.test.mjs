@@ -238,8 +238,12 @@ export async function runSchemaValidation() {
   
   const queue = JSON.parse(readFileSync(QUEUE_PATH, 'utf8'));
   const results = [];
-  
-  for (const script of queue.posts || []) {
+
+  // Only validate active scripts — posted/used scripts are historical and may predate current limits
+  const activeStatuses = new Set(['queued', 'needs-review']);
+  const activeScripts = (queue.posts || []).filter(p => activeStatuses.has(p.status));
+
+  for (const script of activeScripts) {
     const validation = validateScript(script);
     results.push({
       id: script.id,

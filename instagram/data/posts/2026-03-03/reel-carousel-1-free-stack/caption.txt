@@ -1,0 +1,5 @@
+The $0 AI stack that gets me 10 posts/week in 2 hours
+
+Want a complete AI stack that costs absolutely nothing? Here's my go-to setup that I actually use daily. Claude's free tier gives you Opus-level writing that's perfect for content creation, though it resets every five hours. Gemini's free plan is incredible for research with 1,500 requests daily, plus you get image generation. NotebookLM will blow your mind - it turns any PDF into a full podcast episode, completely free. And DeepSeek? It's like having GPT-4 for coding without paying a cent. Follow for more free AI stacks like this.
+
+#AI #solopreneur #automation #toolsforbuilders

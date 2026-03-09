@@ -1,0 +1,422 @@
+{
+  "generatedAt": "2026-03-03 13:05:53 ICT",
+  "weekOf": "2026-03-03",
+  "stats": {
+    "totalFeedsChecked": 6,
+    "totalItemsFound": 67,
+    "relevantItems": 67,
+    "validatedTools": 3
+  },
+  "sources": [
+    "Product Hunt",
+    "Hacker News",
+    "Ben's Bites",
+    "TechCrunch",
+    "VentureBeat AI",
+    "The Next Web"
+  ],
+  "newTools": [
+    {
+      "name": "Motorola",
+      "description": "Comments",
+      "source": "https://motorolanews.com/motorola-three-new-b2b-solutions-at-mwc-2026/"
+    },
+    {
+      "name": "Intent",
+      "description": "Comments",
+      "source": "https://github.com/adamveld12/ghost"
+    },
+    {
+      "name": "RCade",
+      "description": "Comments",
+      "source": "https://www.frankchiarulli.com/blog/building-the-rcade/"
+    }
+  ],
+  "trendingTopics": [
+    "AI agents for workflows",
+    "No-code automation",
+    "Solopreneur productivity stacks"
+  ],
+  "contentAngles": [
+    {
+      "id": "angle-1772517953976-0",
+      "hook": "Intuit is betting its 40 years of small business data can outlast the SaaSpocalypse",
+      "pillar": "Tool Reviews & Tutorials",
+      "slides": [
+        "Hook",
+        "Problem",
+        "Solution",
+        "How-to",
+        "Results",
+        "CTA"
+      ],
+      "whyNow": "Trending this week",
+      "source": "https://venturebeat.com/infrastructure/intuit-is-betting-its-40-years-of-small-business-data-can-outlast-the",
+      "status": "new"
+    },
+    {
+      "id": "angle-1772517953976-1",
+      "hook": "Anthropic vs. The Pentagon: what enterprises should do",
+      "pillar": "Workflow Breakdowns",
+      "slides": [
+        "Hook",
+        "Problem",
+        "Solution",
+        "How-to",
+        "Results",
+        "CTA"
+      ],
+      "whyNow": "Trending this week",
+      "source": "https://venturebeat.com/technology/anthropic-vs-the-pentagon-what-enterprises-should-do",
+      "status": "new"
+    },
+    {
+      "id": "angle-1772517953976-2",
+      "hook": "Google's Opal just quietly showed enterprise teams the new blueprint for building AI agents",
+      "pillar": "Solopreneur Mindset",
+      "slides": [
+        "Hook",
+        "Problem",
+        "Solution",
+        "How-to",
+        "Results",
+        "CTA"
+      ],
+      "whyNow": "Trending this week",
+      "source": "https://venturebeat.com/technology/googles-opal-just-quietly-showed-enterprise-teams-the-new-blueprint-for",
+      "status": "new"
+    },
+    {
+      "id": "angle-1772517953976-3",
+      "hook": "Alibaba's small, open source Qwen3.5-9B beats OpenAI's gpt-oss-120B and can run on standard laptops",
+      "pillar": "Tool Stacks & Comparisons",
+      "slides": [
+        "Hook",
+        "Problem",
+        "Solution",
+        "How-to",
+        "Results",
+        "CTA"
+      ],
+      "whyNow": "Trending this week",
+      "source": "https://venturebeat.com/technology/alibabas-small-open-source-qwen3-5-9b-beats-openais-gpt-oss-120b-and-can-run",
+      "status": "new"
+    },
+    {
+      "id": "angle-1772517953976-4",
+      "hook": "What if the real risk of AI isn’t deepfakes — but daily whispers?",
+      "pillar": "Quick Tips & Hacks",
+      "slides": [
+        "Hook",
+        "Problem",
+        "Solution",
+        "How-to",
+        "Results",
+        "CTA"
+      ],
+      "whyNow": "Trending this week",
+      "source": "https://venturebeat.com/technology/what-if-the-real-risk-of-ai-isnt-deepfakes-but-daily-whispers",
+      "status": "new"
+    },
+    {
+      "id": "angle-1772517953976-5",
+      "hook": "Vibe coding with overeager AI: Lessons learned from treating Google AI Studio like a teammate  ",
+      "pillar": "Tool Reviews & Tutorials",
+      "slides": [
+        "Hook",
+        "Problem",
+        "Solution",
+        "How-to",
+        "Results",
+        "CTA"
+      ],
+      "whyNow": "Trending this week",
+      "source": "https://venturebeat.com/orchestration/vibe-coding-with-overeager-ai-lessons-learned-from-treating-google-ai-studio",
+      "status": "new"
+    },
+    {
+      "id": "angle-1772517953976-6",
+      "hook": "Users are ditching ChatGPT for Claude — here’s how to make the switch",
+      "pillar": "Workflow Breakdowns",
+      "slides": [
+        "Hook",
+        "Problem",
+        "Solution",
+        "How-to",
+        "Results",
+        "CTA"
+      ],
+      "whyNow": "Trending this week",
+      "source": "https://techcrunch.com/2026/03/02/users-are-ditching-chatgpt-for-claude-heres-how-to-make-the-switch/",
+      "status": "new"
+    }
+  ],
+  "validatedTools": [
+    {
+      "source": "Hacker News",
+      "sourceType": "community",
+      "priority": "high",
+      "title": "Motorola announces a partnership with GrapheneOS",
+      "url": "https://motorolanews.com/motorola-three-new-b2b-solutions-at-mwc-2026/",
+      "description": "Comments",
+      "date": "Mon, 02 Mar 2026 06:48:07 +0000",
+      "guid": "https://motorolanews.com/motorola-three-new-b2b-solutions-at-mwc-2026/",
+      "relevanceScore": 55,
+      "toolName": "Motorola",
+      "validationScore": 10,
+      "validated": true,
+      "reviewSnippets": [
+        "If you see inaccuracies in our content, please report the mistake via this form. Close ... <strong>The 2026 Moto G Power is Motorola&#x27;s best budget phone yet, with an enduring battery life and a sharp-looking display</strong>.",
+        "The Motorola Moto G67 Power is <strong>a solid mid-range phone with long battery life and a stylish design</strong>. If long software support matters to you, you should look elsewhere. ... The selection of devices to be reviewed is made by our editorial team."
+      ]
+    },
+    {
+      "source": "Hacker News",
+      "sourceType": "community",
+      "priority": "high",
+      "title": "Intent-Based Commits",
+      "url": "https://github.com/adamveld12/ghost",
+      "description": "Comments",
+      "date": "Tue, 03 Mar 2026 04:20:37 +0000",
+      "guid": "https://github.com/adamveld12/ghost",
+      "relevanceScore": 50,
+      "toolName": "Intent",
+      "validationScore": 10,
+      "validated": true,
+      "reviewSnippets": [
+        "To submit comments and recommendations ... under Review—Open for Public Comments”, then search the list for the information collection by Title or “OMB Control No. 2900-0826.” · VA PRA information: Dorothy Glasgow, 202-461-1084, VAPRA@va.gov. Title: Intent to File a Claim ...",
+        "Agent: agents/10-synthesize.md Files: PRINCIPLES.md, agent file, all artifacts Data: workspace Output: REVIEW.md · Organizes surfaced concerns by category (correctness, assumption, type-system, intent), not by severity."
+      ]
+    },
+    {
+      "source": "Hacker News",
+      "sourceType": "community",
+      "priority": "high",
+      "title": "RCade: Building a Community Arcade Cabinet",
+      "url": "https://www.frankchiarulli.com/blog/building-the-rcade/",
+      "description": "Comments",
+      "date": "Thu, 26 Feb 2026 19:09:18 +0000",
+      "guid": "https://www.frankchiarulli.com/blog/building-the-rcade/",
+      "relevanceScore": 40,
+      "toolName": "RCade",
+      "validationScore": 10,
+      "validated": true,
+      "reviewSnippets": [
+        "Mini Review Arcade Archives 2 Rave Racer (Switch 2) - The Pure Spirit Of Ridge Racer, Finally On Home Console",
+        "Rave Racer is undeniably an odd game. Annoyingly brash audio meets peak ’90s track design, all wrapped up in drift-centric racing. Ropy by today’s standards, it still has that magic ‘something’ that the era’s arcades seemed able to capture without apparent effort."
+      ]
+    }
+  ],
+  "topItems": [
+    {
+      "source": "VentureBeat AI",
+      "title": "Intuit is betting its 40 years of small business data can outlast the SaaSpocalypse",
+      "url": "https://venturebeat.com/infrastructure/intuit-is-betting-its-40-years-of-small-business-data-can-outlast-the",
+      "date": "Mon, 02 Mar 2026 21:00:00 GMT",
+      "relevanceScore": 105
+    },
+    {
+      "source": "VentureBeat AI",
+      "title": "Anthropic vs. The Pentagon: what enterprises should do",
+      "url": "https://venturebeat.com/technology/anthropic-vs-the-pentagon-what-enterprises-should-do",
+      "date": "Sat, 28 Feb 2026 06:16:00 GMT",
+      "relevanceScore": 100
+    },
+    {
+      "source": "VentureBeat AI",
+      "title": "Google's Opal just quietly showed enterprise teams the new blueprint for building AI agents",
+      "url": "https://venturebeat.com/technology/googles-opal-just-quietly-showed-enterprise-teams-the-new-blueprint-for",
+      "date": "Fri, 27 Feb 2026 23:25:00 GMT",
+      "relevanceScore": 95
+    },
+    {
+      "source": "VentureBeat AI",
+      "title": "Alibaba's small, open source Qwen3.5-9B beats OpenAI's gpt-oss-120B and can run on standard laptops",
+      "url": "https://venturebeat.com/technology/alibabas-small-open-source-qwen3-5-9b-beats-openais-gpt-oss-120b-and-can-run",
+      "date": "Mon, 02 Mar 2026 19:42:00 GMT",
+      "relevanceScore": 85
+    },
+    {
+      "source": "VentureBeat AI",
+      "title": "What if the real risk of AI isn’t deepfakes — but daily whispers?",
+      "url": "https://venturebeat.com/technology/what-if-the-real-risk-of-ai-isnt-deepfakes-but-daily-whispers",
+      "date": "Sun, 01 Mar 2026 19:00:00 GMT",
+      "relevanceScore": 70
+    },
+    {
+      "source": "VentureBeat AI",
+      "title": "Vibe coding with overeager AI: Lessons learned from treating Google AI Studio like a teammate  ",
+      "url": "https://venturebeat.com/orchestration/vibe-coding-with-overeager-ai-lessons-learned-from-treating-google-ai-studio",
+      "date": "Sat, 28 Feb 2026 08:00:00 GMT",
+      "relevanceScore": 70
+    },
+    {
+      "source": "TechCrunch",
+      "title": "Users are ditching ChatGPT for Claude — here’s how to make the switch",
+      "url": "https://techcrunch.com/2026/03/02/users-are-ditching-chatgpt-for-claude-heres-how-to-make-the-switch/",
+      "date": "Mon, 02 Mar 2026 18:42:11 +0000",
+      "relevanceScore": 65
+    },
+    {
+      "source": "Product Hunt",
+      "title": "CtrlAI",
+      "url": "https://www.producthunt.com/products/ctrlai",
+      "date": "2026-03-01T15:07:34.000Z",
+      "relevanceScore": 60
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Voca AI",
+      "url": "https://www.producthunt.com/products/voca-ai",
+      "date": "2026-03-01T14:46:59.000Z",
+      "relevanceScore": 60
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Didit v3",
+      "url": "https://www.producthunt.com/products/didit-3",
+      "date": "2026-03-02T01:26:59.000Z",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Unfold",
+      "url": "https://www.producthunt.com/products/unfold-7",
+      "date": "2026-03-02T03:35:41.000Z",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Aura",
+      "url": "https://www.producthunt.com/products/aura-28",
+      "date": "2026-03-01T17:57:51.000Z",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Agent Commune",
+      "url": "https://www.producthunt.com/products/linkedin-for-ai-agents",
+      "date": "2026-02-28T04:05:41.000Z",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Product Hunt",
+      "title": "NothingHere",
+      "url": "https://www.producthunt.com/products/nothinghere-one-key-press-clean-screen",
+      "date": "2026-03-02T04:44:06.000Z",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Kimi Claw",
+      "url": "https://www.producthunt.com/products/kimi-ai-assistant",
+      "date": "2026-03-02T04:08:17.000Z",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Product Hunt",
+      "title": "OpenFang",
+      "url": "https://www.producthunt.com/products/openfang",
+      "date": "2026-03-01T01:50:41.000Z",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "Meta’s AI smart glasses and data privacy concerns",
+      "url": "https://www.svd.se/a/K8nrV4/metas-ai-smart-glasses-and-data-privacy-concerns-workers-say-we-see-everything",
+      "date": "Mon, 02 Mar 2026 22:32:35 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "Ars Technica fires reporter after AI controversy involving fabricated quotes",
+      "url": "https://futurism.com/artificial-intelligence/ars-technica-fires-reporter-ai-quotes",
+      "date": "Tue, 03 Mar 2026 01:12:30 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "Show HN: I built a sub-500ms latency voice agent from scratch",
+      "url": "https://www.ntik.me/posts/voice-agent",
+      "date": "Mon, 02 Mar 2026 21:23:40 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "First in-utero stem cell therapy for fetal spina bifida repair is safe: study",
+      "url": "https://health.ucdavis.edu/news/headlines/first-ever-in-utero-stem-cell-therapy-for-fetal-spina-bifida-repair-is-safe-study-finds/2026/02",
+      "date": "Mon, 02 Mar 2026 14:54:58 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "New iPad Air, powered by M4",
+      "url": "https://www.apple.com/newsroom/2026/03/apple-introduces-the-new-ipad-air-powered-by-m4/",
+      "date": "Mon, 02 Mar 2026 14:11:23 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "Launch HN: OctaPulse (YC W26) – Robotics and computer vision for fish farming",
+      "url": "https://news.ycombinator.com/item?id=47220320",
+      "date": "Mon, 02 Mar 2026 16:39:21 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "Motorola announces a partnership with GrapheneOS",
+      "url": "https://motorolanews.com/motorola-three-new-b2b-solutions-at-mwc-2026/",
+      "date": "Mon, 02 Mar 2026 06:48:07 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Hacker News",
+      "title": "The Excommunicated Devs Making Games with AI",
+      "url": "https://www.tyleo.com/blog/the-excommunicated-devs-making-games-with-ai",
+      "date": "Tue, 03 Mar 2026 02:16:52 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "TechCrunch",
+      "title": "ChatGPT uninstalls surged by 295% after DoD deal",
+      "url": "https://techcrunch.com/2026/03/02/chatgpt-uninstalls-surged-by-295-after-dod-deal/",
+      "date": "Tue, 03 Mar 2026 00:03:37 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "TechCrunch",
+      "title": "A married founder duo’s company, 14.ai, is replacing customer support teams at startups",
+      "url": "https://techcrunch.com/2026/03/02/a-married-founder-duos-company-14-ai-is-replacing-customer-support-teams-at-startups/",
+      "date": "Mon, 02 Mar 2026 15:14:36 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "TechCrunch",
+      "title": "Parade’s Cami Tellez announces new creator economy marketing platform, $4M in funding",
+      "url": "https://techcrunch.com/2026/03/02/parades-cami-tellez-announces-new-creator-economy-marketing-platform-4m-in-funding/",
+      "date": "Mon, 02 Mar 2026 14:00:00 +0000",
+      "relevanceScore": 55
+    },
+    {
+      "source": "VentureBeat AI",
+      "title": "When AI lies: The rise of alignment faking in autonomous systems",
+      "url": "https://venturebeat.com/security/when-ai-lies-the-rise-of-alignment-faking-in-autonomous-systems",
+      "date": "Sun, 01 Mar 2026 19:00:00 GMT",
+      "relevanceScore": 55
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Rankfender",
+      "url": "https://www.producthunt.com/products/rankfender",
+      "date": "2026-02-26T20:49:31.000Z",
+      "relevanceScore": 50
+    },
+    {
+      "source": "Product Hunt",
+      "title": "Mosaic",
+      "url": "https://www.producthunt.com/products/mosaic-so",
+      "date": "2026-02-11T00:06:43.000Z",
+      "relevanceScore": 50
+    }
+  ]
+}

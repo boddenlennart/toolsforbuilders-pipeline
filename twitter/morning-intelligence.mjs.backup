@@ -1,0 +1,157 @@
+#!/usr/bin/env node
+/**
+ * morning-intelligence.mjs — Content pipeline trigger
+ *
+ * Fetches home timeline, saves to file, then sends a message to the
+ * OpenClaw main agent session which does the actual draft generation
+ * using its existing Claude session — no extra API cost.
+ *
+ * Usage: node morning-intelligence.mjs
+ */
+
+import { execFile } from 'child_process';
+import { promisify } from 'util';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import fs from 'fs';
+
+const execFileAsync = promisify(execFile);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+console.log('=== Morning Intelligence — Step 1: Fetch Timeline ===\n');
+
+// Step 1: fetch and save timeline
+try {
+  const { stdout, stderr } = await execFileAsync('node', [
+    path.join(__dirname, 'save-timeline.mjs')
+  ], { timeout: 60000 });
+  console.log(stdout);
+  if (stderr) console.error(stderr);
+} catch (e) {
+  if (e.message && e.message.includes('CreditsDepleted')) {
+    console.warn('⚠️  Twitter API credits depleted — falling back to cached timeline.');
+    const cached = '/root/.openclaw/workspace/memory/timeline-latest.json';
+    if (!fs.existsSync(cached)) {
+      console.error('No cached timeline available. Aborting scan.');
+      process.exit(1);
+    }
+    const age = (Date.now() - fs.statSync(cached).mtimeMs) / 3600000;
+    console.log(`Using cached timeline (${age.toFixed(1)}h old)`);
+  } else {
+    console.error('Timeline fetch failed:', e.message);
+    process.exit(1);
+  }
+}
+
+// Step 2: send to main agent session for draft generation
+console.log('\n=== Step 2: Sending to agent for draft generation ===\n');
+
+// Compute Bangkok date at runtime so the agent uses the exact correct date
+const bkkDate = new Intl.DateTimeFormat('sv', { timeZone: 'Asia/Bangkok', dateStyle: 'short' }).format(new Date());
+console.log(`Bangkok date: ${bkkDate}`);
+
+const message = `CONTENT PIPELINE SCAN. Run now. Today's Bangkok date: ${bkkDate}
+
+Timeline data at: /root/.openclaw/workspace/memory/timeline-latest.json
+Writing rules at: /root/.openclaw/workspace/memory/writing-rules.md
+Style observations (voice/tone reference from top creators): /root/.openclaw/workspace/memory/style-observations.md — read this before drafting. Use it to humanise the voice, not to copy anyone directly.
+
+Steps:
+1. Read both files above
+2. GET http://localhost:3000/api/content-pipeline?date_from=${bkkDate}&date_to=${bkkDate}
+
+CAP LOGIC:
+- Count only items with status "draft" or "approved" toward the daily cap (rejected and posted do NOT count)
+- Daily caps: 20 replies, 3 quote_threads, 1 standalone, 1 thread
+- TARGET RATIO: replies minimum 75% of all drafts — this is the primary content type. Fill in this order: replies → quote_threads → standalone → thread.
+- PER SCAN CAPS: morning scan generates up to 12 replies + 1 quote_thread (front-load as many as possible from the fresh timeline). Midday and evening scans top up remaining slots from cached timeline.
+- Dedup: collect ALL target_tweet_ids from today's items regardless of status — never re-reply to the same tweet even if the previous draft was rejected
+- SOURCE DEDUP: one piece of content per source tweet per day. If a tweet is used as a quote_thread source, do not also draft a reply or standalone on the same tweet/topic. If a source account already has one reply drafted today, do not draft a thread or standalone inspired by the same account's tweets that day. Variety across accounts and topics is more valuable than depth on one source.
+- ACCOUNT DIVERSITY (mandatory): No more than 2 drafts targeting the same account per scan run. Aim for at least 5 different accounts across the full draft set. Explicitly check: which accounts had content drafted in the last 3 days? Deprioritise those and favour accounts not recently targeted.
+- TIER RULES (strictly enforced — read target-accounts.md for full list):
+  • Tier 3 (3K–50K followers) = PRIMARY reply target. This is where reply drafts go. Examples: @RonSwanonson, @BitmundFreud, @fiatarchive, @0_21_BTC, @MrsHodl, @benjaminhodlin, @BitcoinRothbard, @Cole_Walmsley, @stack2thefuture, @Handrev, @mir_btc, @DzambhalaHODL, @just1nvest, @bramk, @NikoJilch, @bitcoin_hotel, @bruceflorian, @adamobrien, @leonwankum, @Dante_Cook1, @bitcoinmunger, @sunny051488, @RoaringRagnar, @OnrampBitcoin, @MrRickLennon
+  • Tier 2 (50K–400K followers) = Selective only. Only draft a reply if the angle is genuinely exceptional and adds something the thread is missing. Maximum 1 Tier 2 reply per scan run. When in doubt, skip.
+  • Tier 1 (400K+ followers) = SKIP ENTIRELY. No replies, no quote threads. Replies to Tier 1 get overshadowed instantly and drive zero engagement. Do not generate any content targeting Tier 1 accounts.
+  • Unknown accounts or general feed accounts not in the tier list = skip entirely for replies.
+- EXCLUDED ACCOUNTS (never generate any content targeting these):
+  • @Excellion — does not follow back, replies have no reach
+  • @PeterMcCormack — posts off-topic frequently, replies not performing, excluded permanently
+
+STALE CLEANUP (do this first, before any cap checks):
+- Fetch ALL items with status "draft" or "approved" via GET http://localhost:3000/api/content-pipeline?status=draft and GET http://localhost:3000/api/content-pipeline?status=approved
+- For each item: if created_at is older than 24 hours ago (compare to current UTC time) → PATCH status to "rejected" via PATCH http://localhost:3000/api/content-pipeline/:id with { status: "rejected" }
+- Log how many were cleaned up
+- This frees space and ensures the pipeline only contains fresh, timely content
+
+CONTENT MIX (only fill remaining slots after cap check):
+- REPLIES (type: "reply"): up to 8 active (draft+approved). Pick highest-scored targetTweets not in dedup list. Write a reply engaging the specific tweet. Self-review against writing-rules.md. Hard reject if: any dashes, staccato fragments, sycophantic opener, generic take ignoring the actual tweet, forced Bitcoin pivot on a non-Bitcoin tweet.
+- STANDALONE TWEETS (type: "standalone"): max 1 per scan AND max 1 per day total. Only generate if no standalone exists today already. Low priority — skip if reply slots are not yet filled. Standalones drive low engagement at current follower count; replies are the growth lever.
+- QUOTE THREADS (type: "quote_thread"): up to 2 active. Use when a source tweet has enough depth to thread on. Tweet 1 = the comment posted AS the quote tweet (hook, max 240 chars). Tweets 2-N = analytical thread building on that hook. content_json: { quote_tweet_url: "https://x.com/...", quote_tweet_author: "@handle", quote_tweet_text: "original tweet text (first 120 chars)", tweets: [{order:1, text:"hook comment"}, {order:2, text:"..."}, ...] }. Set source_url = quote_tweet_url, source_label = "@handle, [date/context]". target_tweet_id = tweet ID being quoted, target_account = @handle.
+- THREADS (type: "thread"): up to 1 active. Only for original ideas with no clear source tweet. Topics from first principles or Lennart's own analysis. content_json: { tweets: [{order:1, text:"..."}, ...] }.
+
+ATTRIBUTION FORMAT (mandatory for any thread or standalone referencing a real event/quote):
+- Always name the person: "Jensen Huang, NVIDIA CEO" not "an executive"
+- Always include date/context: "at GTC 2026" or "in Feb 2026 SEC filing"
+- Use exact quotes where possible, in quotation marks
+- NEVER include URLs or links inside tweet text — they kill reach
+- Store the source URL in source_url field so it's available for reference
+- Store the attribution label in source_label field e.g. "Morgan Stanley, Feb 2026"
+
+TWEET ID VALIDATION (mandatory before every POST):
+Before submitting any reply or quote_thread, verify the target_tweet_id matches the target_account by cross-checking the tweet in the timeline JSON:
+- Find the tweet object with id = target_tweet_id
+- Confirm that tweet's author.username matches target_account (case-insensitive)
+- If they don't match → DO NOT submit. Skip that draft entirely and log the mismatch.
+- Never guess or infer tweet IDs. Only use IDs that appear verbatim in the timeline JSON.
+
+POST each approved item to http://localhost:3000/api/content-pipeline:
+{ type, content_json, target_account (replies only), target_tweet_id (replies only, use real id from timeline file), scheduled_date: "${bkkDate}" (use exactly this date string), source: "morning_scan", urgency: "normal" or "high" if score > 500, source_url: (original tweet URL if applicable), source_label: (e.g. "@APompliano, Feb 2026") }
+
+CHARACTER LIMIT (hard rule): Every single tweet — replies, standalones, and each individual tweet within a thread or quote_thread — must be 275 characters or fewer. Count before submitting. Hard reject anything over 275 chars. No exceptions.
+
+Only submit what genuinely passes self-review. Zero dashes anywhere.`;
+
+try {
+  const { stdout } = await execFileAsync('openclaw', [
+    'agent', '--local', '--agent', 'main',
+    '--message', message,
+  ], { timeout: 300000, maxBuffer: 1024 * 1024 });
+
+  console.log('Agent response received.');
+  // Extract summary line if present
+  const lines = stdout.split('\n').filter(l => l.includes('draft') || l.includes('submitted') || l.includes('Complete'));
+  if (lines.length) console.log(lines.join('\n'));
+
+} catch (e) {
+  console.error('Agent trigger failed:', e.message);
+  process.exit(1);
+}
+
+// Notify Lennart via Telegram
+try {
+  const { readFileSync } = await import('fs');
+  const cfg = JSON.parse(readFileSync('/root/.openclaw/openclaw.json', 'utf8'));
+  const botToken = cfg.channels?.telegram?.botToken;
+  // DM Lennart directly (not group) so it's a clear ping
+  const chatId = '2046511634';
+  if (botToken) {
+    // Count new drafts added this run
+    const countRes = await fetch('http://localhost:3000/api/content-pipeline?status=draft');
+    const countData = await countRes.json();
+    const draftCount = countData.items?.length || 0;
+    const now = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit' });
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: `📋 *Scan complete* (${now} BKK)\n\n${draftCount} draft${draftCount !== 1 ? 's' : ''} ready in the pipeline. Tap to review: http://100.105.60.33:3000`,
+        parse_mode: 'Markdown',
+      }),
+    });
+  }
+} catch (e) {
+  console.error('Telegram ping failed:', e.message);
+}
+
+console.log('\n✅ Done. Check dashboard for new drafts.');

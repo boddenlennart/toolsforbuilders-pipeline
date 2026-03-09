@@ -1,0 +1,23 @@
+{
+  "name": "toolsforbuilders-instagram",
+  "version": "1.0.0",
+  "description": "Automated Instagram content pipeline for @toolsforbuilders",
+  "type": "module",
+  "scripts": {
+    "research": "node research-trends.mjs",
+    "generate": "node generate-content.mjs",
+    "images": "node generate-images.mjs",
+    "post": "node post-to-instagram.mjs",
+    "approve": "node approval-bot.mjs",
+    "daily": "node daily-post.mjs",
+    "refresh": "node refresh-token.mjs",
+    "test-image": "node generate-images.mjs --test"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1000.0",
+    "canvas": "^2.11.2",
+    "dotenv": "^16.4.5",
+    "puppeteer": "^24.37.5",
+    "rss-parser": "^3.13.0"
+  }
+}

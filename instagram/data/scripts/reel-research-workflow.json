@@ -1,0 +1,62 @@
+{
+  "id": "reel-research-workflow-v1",
+  "angle": "Option B — Research any topic in 20 minutes",
+  "hook_formula": "Time Compression + Hidden Knowledge",
+  "target_duration_seconds": 40,
+  "hookHeadline": "You're spending\n3 hours on research.\nI do it in 20 minutes.",
+  "hookSub": "And I find angles you missed.",
+  "hookTTS": "You're spending three hours on research. I do the same research in twenty minutes. And my angles are different from everyone else's.",
+  "agitateMain": "You're reading the\nsame articles\neveryone else reads.",
+  "agitateBridge": "Here's how to find what none of them cover →",
+  "agitateTTS": "The problem is everyone reads the same articles. Your content ends up looking just like your competitors. This workflow goes deeper.",
+  "points": [
+    {
+      "label": "STEP 01",
+      "toolName": "NotebookLM",
+      "verdict": "Dump your competitors in. Ask what they missed.",
+      "bullets": [
+        "Find 5 competitor articles on your topic",
+        "Upload all 5 as sources in one NotebookLM notebook",
+        "Ask: what question does none of this answer?",
+        "That gap is your content angle"
+      ],
+      "quickWin": "→ notebooklm.google.com (free)",
+      "tts": "Open NotebookLM. Upload five competitor articles as sources. Then ask: what question does none of this answer? That gap is your angle. It's free, just needs a Google login."
+    },
+    {
+      "label": "STEP 02",
+      "toolName": "Claude",
+      "verdict": "Turn the gap into a brief. Get a draft in one prompt.",
+      "bullets": [
+        "Paste the gap as your topic",
+        "Add: audience, format, word count",
+        "Prompt: 'lead with the contrarian take, no intro fluff'",
+        "Iterate once — usually under 5 minutes"
+      ],
+      "quickWin": "→ claude.ai (free, no card)",
+      "tts": "Paste that gap into Claude with one instruction: eight hundred words, no intro fluff, lead with the contrarian take. One iteration and it's done."
+    },
+    {
+      "label": "STEP 03",
+      "toolName": "Gemini",
+      "verdict": "Verify every claim before it goes live.",
+      "bullets": [
+        "Paste the draft into Gemini",
+        "Ask: flag any claim that needs a source",
+        "Fix the flagged lines. Five minutes.",
+        "Now it's accurate AND original"
+      ],
+      "quickWin": "→ gemini.google.com (free)",
+      "tts": "Last step — and this is the one people skip. Paste into Gemini, ask it to flag any claim that needs a source. Fix those lines. Five minutes. Now it's verified."
+    }
+  ],
+  "proofStat": "20 min",
+  "proofContext": "blank page → verified draft\nin twenty minutes.\nNo subscriptions. No degree.",
+  "proofSource": "workflow-tested March 2026",
+  "proofTTS": "Blank page to verified draft in twenty minutes. No subscriptions, no prompt engineering degree. Just three free tools in the right order.",
+  "ctaSaveText": "Save this workflow.",
+  "ctaHandle": "@toolsforbuilders",
+  "ctaValueProp": "One free workflow like this\nevery week.",
+  "ctaSecondary": "Next one drops Thursday.",
+  "ctaTTS": "Save this before you forget it. I drop one of these every day."
+}

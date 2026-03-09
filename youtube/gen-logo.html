@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1024px; height: 1024px; overflow: hidden; }
+
+  .canvas {
+    width: 1024px;
+    height: 1024px;
+    background: #0a0d0f;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Grid overlay */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Border glow */
+  .border-glow {
+    position: absolute;
+    inset: 0;
+    border: 3px solid transparent;
+    background: linear-gradient(#0a0d0f, #0a0d0f) padding-box,
+                linear-gradient(135deg, #0066ff 0%, #00ff88 50%, #aaff00 100%) border-box;
+  }
+
+  /* Radial glow behind letters */
+  .glow-blue {
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    left: 120px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: radial-gradient(circle, rgba(30, 120, 255, 0.35) 0%, transparent 70%);
+    filter: blur(20px);
+  }
+
+  .glow-lime {
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: radial-gradient(circle, rgba(180, 255, 0, 0.3) 0%, transparent 70%);
+    filter: blur(20px);
+  }
+
+  /* Letters */
+  .letters {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-family: 'Arial Black', 'Impact', sans-serif;
+    font-size: 520px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -20px;
+  }
+
+  .t {
+    color: #2196F3;
+    text-shadow:
+      0 0 60px rgba(33, 150, 243, 0.6),
+      0 0 120px rgba(33, 150, 243, 0.3);
+  }
+
+  .b {
+    color: #CCFF00;
+    text-shadow:
+      0 0 60px rgba(204, 255, 0, 0.5),
+      0 0 120px rgba(204, 255, 0, 0.25);
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="grid"></div>
+    <div class="glow-blue"></div>
+    <div class="glow-lime"></div>
+    <div class="border-glow"></div>
+    <div class="letters">
+      <span class="t">T</span>
+      <span class="b">B</span>
+    </div>
+  </div>
+</body>
+</html>
