@@ -389,8 +389,16 @@ const PILLAR_TAGS = {
   'Myth Bust': '#aidebunked',
 };
 
-const CORE_TAGS = ['#aitools', '#solopreneur', '#productivity'];
+// Hashtag strategy (updated 2026-03): sweet spot = 10k–500k posts.
+// #productivity (100M+ posts) replaced with mid-tier rotating pool.
+const TIER_1_TAGS = ['#aitools', '#solopreneur', '#aiautomation'];
 const BRAND_TAG = '#toolsforbuilders';
+const TIER_2_POOL = [
+  '#workflowautomation', '#digitalnomadlife', '#onlinebusiness',
+  '#contentcreator', '#creatoreconomy', '#sidehustle',
+  '#passiveincome', '#buildingpublicly', '#growthhacking',
+  '#marketingautomation', '#smallbusiness', '#entrepreneurmindset',
+];
 
 /**
  * Build a deduplicated hashtag array for any platform.
@@ -400,11 +408,14 @@ const BRAND_TAG = '#toolsforbuilders';
  * @returns {string[]} Array of hashtag strings
  */
 function buildTags(script, max = 12) {
-  if (!script) return [...CORE_TAGS, BRAND_TAG].slice(0, max);
+  if (!script) return [...TIER_1_TAGS, BRAND_TAG].slice(0, max);
   const toolNames = (script.points || []).map(p => p.toolName).filter(Boolean);
-  const toolTags = toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean);
-  const pillarTag = PILLAR_TAGS[script.pillar] || '#workflow';
-  return [...new Set([pillarTag, ...toolTags, ...CORE_TAGS, BRAND_TAG])].slice(0, max);
+  const toolTags = [...new Set(toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean))];
+  const pillarTag = PILLAR_TAGS[script.pillar] || '#aiworkflow';
+  const seed = (script.id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  const shuffled = [...TIER_2_POOL].sort((a, b) => ((seed * a.charCodeAt(1)) % 97) - ((seed * b.charCodeAt(1)) % 97));
+  const tier2 = shuffled.slice(0, 3);
+  return [...new Set([pillarTag, ...toolTags, ...TIER_1_TAGS, ...tier2, BRAND_TAG])].slice(0, max);
 }
 
 // ──────────────────────────────────────────────────────────────────────────────

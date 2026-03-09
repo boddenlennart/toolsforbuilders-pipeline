@@ -84,22 +84,66 @@ const PILLAR_TAGS = {
   'Myth Bust': '#aidebunked',
 };
 
-const CORE_TAGS = ['#aitools', '#solopreneur', '#productivity'];
+// Hashtag strategy (updated 2026-03):
+// Sweet spot = 10k–500k posts. Mega-broad tags (#productivity, #ai) have 100M+ posts
+// and bury small accounts. Mid-tier niche tags win for discovery at our follower count.
+//
+// Tiers:
+//   TIER_1 (always included): brand + 2 core niche tags with healthy volume
+//   TIER_2 (rotating pool): mid-tier tags that vary per post to avoid spam penalisation
+//   PILLAR_TAGS: content-type specific, always included
+//   TOOL_TAGS: tool-specific, always included when tool is featured
+//
+// Instagram: 11 tags max (sweet spot for reach)
+// YouTube:   5 tags (first 3 appear above title — put best ones first)
+
 const BRAND_TAG = '#toolsforbuilders';
+
+// Always included — strong niche volume, right size for growing account
+const TIER_1_TAGS = ['#aitools', '#solopreneur', '#aiautomation'];
+
+// Rotating mid-tier pool — cycle through these so no two consecutive posts share all tags
+// All in the 10k–300k post range — competitive enough to be browsed, small enough to rank
+const TIER_2_POOL = [
+  '#workflowautomation',
+  '#digitalnomadlife',
+  '#onlinebusiness',
+  '#contentcreator',
+  '#creatoreconomy',
+  '#sidehustle',
+  '#passiveincome',
+  '#buildingpublicly',
+  '#growthhacking',
+  '#marketingautomation',
+  '#smallbusiness',
+  '#entrepreneurmindset',
+];
+
+const BRAND_TAG_CONSTANT = BRAND_TAG; // alias for clarity in buildTags
 
 /**
  * Build a deduplicated hashtag array for any platform.
- * Priority order: pillar → tool-specific → core → branded.
+ * Priority order: pillar → tool-specific → tier1 → tier2 (rotating) → branded.
  * @param {object|null} script - Content queue script object
  * @param {number} max - Max number of tags to return
  * @returns {string[]} Array of hashtag strings
  */
 function buildTags(script, max = 12) {
-  if (!script) return [...CORE_TAGS, BRAND_TAG].slice(0, max);
+  if (!script) return [...TIER_1_TAGS, BRAND_TAG_CONSTANT].slice(0, max);
   const toolNames = (script.points || []).map(p => p.toolName).filter(Boolean);
-  const toolTags = toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean);
-  const pillarTag = PILLAR_TAGS[script.pillar] || '#workflow';
-  return [...new Set([pillarTag, ...toolTags, ...CORE_TAGS, BRAND_TAG])].slice(0, max);
+  const toolTags = [...new Set(toolNames.map(t => TOOL_TAGS[t.toLowerCase()] || null).filter(Boolean))];
+  const pillarTag = PILLAR_TAGS[script.pillar] || '#aiworkflow';
+
+  // Rotate tier2 tags based on script id hash so each post gets a different combo
+  const seed = (script.id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+  const shuffled = [...TIER_2_POOL].sort((a, b) => {
+    const ha = (seed * a.charCodeAt(1)) % 97;
+    const hb = (seed * b.charCodeAt(1)) % 97;
+    return ha - hb;
+  });
+  const tier2 = shuffled.slice(0, 3);
+
+  return [...new Set([pillarTag, ...toolTags, ...TIER_1_TAGS, ...tier2, BRAND_TAG_CONSTANT])].slice(0, max);
 }
 
 // ──────────────────────────────────────────────────────────────────────────────

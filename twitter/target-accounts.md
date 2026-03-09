@@ -207,6 +207,9 @@ Scan for custody/self-sovereignty content relevant to @btcmaxistheway's book ang
 | @kit_sats | Kit (Tier 3 candidate) | Auto-added 2026-03-03 |
 | @BitcoinHopium | Bitcoin Hopium (Tier 3 candidate) | Auto-added 2026-03-04 |
 | @RunwithBitcoin | Paco de la India (Tier 3 candidate) | Auto-added 2026-03-04 |
+| @RobinSeyr | Robin Seyr (Tier 3 candidate) | Auto-added 2026-03-09 |
+| @david_eng_mba | David (Tier 3 candidate) | Auto-added 2026-03-09 |
+| @DSBatten | Daniel Batten (Tier 2 candidate) | Auto-added 2026-03-09 |
 
 ## Scan Priority Order (updated 2026-03-02)
 
