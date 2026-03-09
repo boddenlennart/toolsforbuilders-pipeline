@@ -196,7 +196,12 @@ export function generateInstagramCaption(script) {
 
   const emoji = PILLAR_EMOJI[script.pillar] || '🛠️';
   const toolNames = extractToolNames(script);
-  const toolLine = toolNames.length ? `\n${toolNames.join(' → ')}` : '';
+  // Single tool: "🛠️ Descript" — multi-tool: "tool1 → tool2"
+  const toolLine = toolNames.length === 1
+    ? `\n🛠️ ${toolNames[0]}`
+    : toolNames.length > 1
+      ? `\n${toolNames.join(' → ')}`
+      : '';
   const tags = buildInstagramTags(script, 12);
 
   return `${emoji} ${script.topic}${toolLine}\n\nSave this. Follow @toolsforbuilders for one workflow every day.\n\n${tags.join(' ')}`;
