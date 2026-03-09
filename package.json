@@ -12,7 +12,7 @@
     "preflight": "node preflight.mjs",
     "dryrun": "DRYRUN=1 node daily-crosspost.mjs",
     "dryrun:approved": "DRYRUN=1 node post-approved-reel.mjs",
-    "lint": "node --input-type=module --check daily-crosspost.mjs post-approved-reel.mjs weekly-content-research.mjs analytics-pull.mjs approval.mjs preflight.mjs",
+    "lint": "for f in daily-crosspost.mjs post-approved-reel.mjs weekly-content-research.mjs analytics-pull.mjs approval.mjs preflight.mjs; do node --check $f || exit 1; done",
     "validate:queue": "node tests/schema.test.mjs"
   },
   "keywords": [
