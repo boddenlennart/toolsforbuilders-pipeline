@@ -88,6 +88,18 @@ async function ensureValidToken(oauth2Client) {
  * @returns {Promise<string>} - Video URL.
  */
 export async function uploadToYouTube(videoPath, { title, description = '', tags = [], thumbnailPath = null }) {
+  // HARD GUARD: YouTube does NOT index hashtags added retroactively via description edits.
+  // Hashtags must be present in the description at upload time to appear above the title
+  // and be discoverable. Minimum 3 hashtags required.
+  const hashtagCount = (description.match(/#\w+/g) || []).length;
+  if (hashtagCount < 3) {
+    throw new Error(
+      `BLOCKED: YouTube description contains only ${hashtagCount} hashtag(s). ` +
+      `Hashtags MUST be included in the description at upload time — ` +
+      `retroactive edits to add hashtags are NOT indexed by the YouTube algorithm.`
+    );
+  }
+
   const env = loadEnv();
   const { YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET } = env;
   if (!YOUTUBE_CLIENT_ID || !YOUTUBE_CLIENT_SECRET) {
